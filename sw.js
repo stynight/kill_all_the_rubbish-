@@ -1,5 +1,5 @@
 // 賽博打小人：離線快取。開過一次之後，冇網都打得。
-const CACHE = 'daxiaoren-v1';
+const CACHE = 'daxiaoren-v2';
 const CORE = ['./', './index.html', './manifest.webmanifest', './icon.svg', './icon-192.png', './icon-512.png', './apple-touch-icon.png'];
 
 self.addEventListener('install', event => {

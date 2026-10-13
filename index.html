@@ -245,6 +245,7 @@ body.quake .wrap{animation:quake .5s linear}
 .thumbs:empty{display:none}
 .thumbs img{width:52px; height:52px; object-fit:cover; border-radius:3px; border:1px solid var(--line)}
 .photo-row{display:flex; flex-wrap:wrap; gap:8px; align-items:center; justify-content:space-between}
+.vh{position:absolute; width:1px; height:1px; opacity:0; pointer-events:none; overflow:hidden}
 </style>
 
 </head>
@@ -267,7 +268,7 @@ body.quake .wrap{animation:quake .5s linear}
 
 <nav class="steps" id="steps" aria-label="打小人流程">
   <button class="step" data-step="1" aria-current="step"><span class="n">一</span>奉神上香</button>
-  <button class="step" data-step="2"><span class="n">二</span>寫小人</button>
+  <button class="step" data-step="2"><span class="n">二</span>寫小人／貼相</button>
   <button class="step" data-step="3"><span class="n">三</span>打小人</button>
   <button class="step" data-step="4"><span class="n">四</span>祭白虎</button>
   <button class="step" data-step="5"><span class="n">五</span>化寶</button>
@@ -404,15 +405,19 @@ body.quake .wrap{animation:quake .5s linear}
     <p class="lede">驚蟄春雷一響，蛇蟲鼠蟻同小人都醒晒。廣東人就趁呢日上香、打小人、祭白虎，求一整年冇是非。唔使等驚蟄，今晚想打就打。</p>
     <ol class="ritual-list">
       <li><span class="k">一</span><span><b>奉神上香</b>：喺神壇揀一位神明，上三炷香，拜三拜。</span></li>
-      <li><span class="k">二</span><span><b>寫小人</b>：寫低小人個名；唔知係邊個，就寫「小人」，群攻一次過打晒。</span></li>
+      <li><span class="k">二</span><span><b>寫小人或者貼相</b>：寫低小人個名，或者貼張相上去；唔知係邊個，就寫「小人」，群攻一次過打晒。</span></li>
       <li><span class="k">三</span><span><b>打小人</b>：揀兵器狠狠咁打，打到手軟就叫阿婆幫手。</span></li>
       <li><span class="k">四</span><span><b>祭白虎</b>：用肥豬肉餵飽白虎，再撒芝麻綠豆，佢就唔會咬你。</span></li>
       <li><span class="k">五</span><span><b>化寶</b>：打爛嘅小人紙、白虎紙同衣紙一齊燒走。</span></li>
       <li><span class="k">六</span><span><b>擲筊祈福</b>：擲出聖杯，即係神明收貨。</span></li>
     </ol>
     <div class="panel-foot">
-      <button class="btn ghost" id="skipToHit">唔理流程，即刻開打</button>
+      <div class="auto-row">
+        <button class="btn ghost" id="skipToHit">唔理流程，即刻開打</button>
+        <button class="btn" type="button" data-quick-photo>貼相開打</button>
+      </div>
       <button class="btn primary" data-go="2">上完香，去寫小人</button>
+      <input type="file" id="photoQuick" class="vh" accept="image/*" multiple tabindex="-1" aria-hidden="true">
     </div>
   </div>
 
@@ -486,7 +491,10 @@ body.quake .wrap{animation:quake .5s linear}
     <div class="ticker" id="ticker">揀好兵器，對住小人撳落去。</div>
     <div class="rack" id="rack" role="group" aria-label="兵器"></div>
     <div class="panel-foot">
-      <button class="btn ghost" id="btnNewPaper">換一張新紙</button>
+      <div class="auto-row">
+        <button class="btn ghost" id="btnNewPaper">換一張新紙</button>
+        <button class="btn" type="button" data-quick-photo>貼相上紙</button>
+      </div>
       <button class="btn primary" data-go="4">打夠喇，去祭白虎</button>
     </div>
   </div>
@@ -1743,6 +1751,20 @@ function bindPhotos() {
     e.preventDefault();
     if (addPhotoFiles(files) && S.step === 3) { await decodePhotos(); newPaper(); S.combo = 0; }
   });
+  const quick = $('#photoQuick');
+  if (quick) {
+    $$('[data-quick-photo]').forEach(b => b.addEventListener('click', () => { Sound.ensure(); quick.click(); }));
+    quick.addEventListener('change', async () => {
+      if (!quick.files || !quick.files.length) return;
+      PHOTO.list.forEach(p => URL.revokeObjectURL(p.url)); PHOTO.list = [];
+      const n = addPhotoFiles(quick.files); quick.value = '';
+      if (!n) return;
+      if (n === 1) { setMode('single'); S.mode = 'single'; S.names = [$('#nameOne').value.trim() || '小人']; }
+      else { setMode('aoe'); S.mode = 'aoe'; S.names = $('#nameMany').value.split('\n').map(s => s.trim()).filter(Boolean).slice(0, 12); }
+      await decodePhotos(); newPaper(); S.combo = 0; markDone(2); go(3);
+      say(n === 1 ? '相貼好喇！揀件兵器，對準佢，打！' : `${n} 張相逐張貼好，群攻開打！`);
+    });
+  }
   $('#btnClearPhotos').addEventListener('click', clearPhotos);
   $('#fitHead').addEventListener('click', () => setFit('head'));
   $('#fitBody').addEventListener('click', () => setFit('body'));
