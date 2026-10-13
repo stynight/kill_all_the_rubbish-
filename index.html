@@ -1650,7 +1650,6 @@ function setAuto(on, quiet) {
   b1.textContent = on ? '阿婆收手' : '阿婆代打'; b2.textContent = on ? '叫阿婆收手' : '叫阿婆代打';
   if (on) {
     Sound.ensure();
-    if (!S.figures.some(f => !f.dead)) newPaper();
     if (S.step !== 3) go(3);
     say(pick(['得，等阿婆幫你打！你飲啖水抖下先。', '睇住，阿婆出手！', '交俾阿婆，四十年功力。']));
     autoTimer = setTimeout(autoTick, 500);
@@ -1658,7 +1657,6 @@ function setAuto(on, quiet) {
 }
 function autoTick() {
   if (!S.auto) return;
-  if (!S.figures.some(f => !f.dead)) { setAuto(false, true); return; }
   if (S.step === 3 && !document.hidden) {
     const dur = Math.min(0.5, SPEEDS[S.speed] / 1000 * 0.9);
     grannyStrike(dur);
