@@ -245,6 +245,7 @@ body.quake .wrap{animation:quake .5s linear}
 .thumbs:empty{display:none}
 .thumbs img{width:52px; height:52px; object-fit:cover; border-radius:3px; border:1px solid var(--line)}
 .photo-row{display:flex; flex-wrap:wrap; gap:8px; align-items:center; justify-content:space-between}
+.wipe-row{display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:flex-end}
 .vh{position:absolute; width:1px; height:1px; opacity:0; pointer-events:none; overflow:hidden}
 </style>
 
@@ -708,6 +709,7 @@ body.quake .wrap{animation:quake .5s linear}
   <div class="stat"><span class="v" id="tKO">0</span><span class="k">擊退小人</span></div>
   <div class="stat"><span class="v" id="tAll">0</span><span class="k">歷來總拍數</span></div>
 </footer>
+<div class="wipe-row"><span class="fine" id="wipeNote">戰績只存喺呢部機，唔會傳出去。</span><button class="btn ghost" type="button" id="btnWipe">一鍵清除紀錄</button></div>
 </div>
 
 <canvas id="smoke" aria-hidden="true"></canvas>
@@ -1771,6 +1773,29 @@ function bindPhotos() {
   renderThumbs();
 }
 
+/* ================= 一鍵清除紀錄 ================= */
+function bindWipe() {
+  const btn = $('#btnWipe'), note = $('#wipeNote'); if (!btn) return;
+  const idle = note.textContent; let armed = false, t = 0;
+  const disarm = () => { armed = false; btn.textContent = '一鍵清除紀錄'; note.textContent = idle; };
+  btn.addEventListener('click', () => {
+    Sound.ensure();
+    if (!armed) {
+      armed = true; btn.textContent = '再撳一次確認清除';
+      note.textContent = '會清走戰績、名字同相片，香同神明照舊。';
+      clearTimeout(t); t = setTimeout(disarm, 4000); return;
+    }
+    clearTimeout(t);
+    S.hits = 0; S.granHits = 0; S.maxCombo = 0; S.ko = 0; S.combo = 0; S.throws = 0;
+    store.allHits = 0; store.rounds = 0; saveStore();
+    $('#nameOne').value = ''; $('#nameMany').value = ''; syncChips();
+    if (PHOTO.list.length) { PHOTO.list.forEach(p => URL.revokeObjectURL(p.url)); PHOTO.list = []; renderThumbs(); }
+    S.names = S.mode === 'single' ? ['小人'] : []; newPaper(); updateTally();
+    disarm(); Sound.play('ding'); toast('紀錄清晒，乜都冇留低');
+    say('清得乾乾淨淨，冇人知你打過邊個。');
+  });
+}
+
 /* ================= 流程 ================= */
 const STEP_LINES = {
   1: '後生，先揀位神明，上三炷香，拜三拜，等神明知道你嚟咗。',
@@ -2046,7 +2071,7 @@ function init() {
   Smoke.start(); FX.start();
   renderToggles(); renderDeity(); updateAltarNote();
   S.term = computeTerm(); renderAlmanac();
-  buildRack(); buildChips(); bindPaperInput(); bindTiger(); bindPhotos();
+  buildRack(); buildChips(); bindPaperInput(); bindTiger(); bindPhotos(); bindWipe();
   newPaper();
   const redraw = () => { if (!paperDirty) drawPaper(); };
   try {
