@@ -134,6 +134,7 @@ textarea.input{min-height:120px; resize:vertical; line-height:1.5}
 /* ---------- hitting ---------- */
 .hitbar{display:flex; flex-wrap:wrap; gap:10px 14px; align-items:center; justify-content:space-between}
 .hp{flex:1 1 220px; display:grid; gap:4px; min-width:0}
+.hp .lab span:first-child{min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
 .hp .lab{display:flex; justify-content:space-between; font-size:14px; color:var(--muted); font-variant-numeric:tabular-nums}
 .hp .bar{height:10px; background:#120d0b; border:1px solid var(--line); border-radius:2px; overflow:hidden}
 .hp .fill{height:100%; width:100%; background:linear-gradient(90deg, var(--cinnabar-deep), var(--cinnabar)); transition:width .2s}
@@ -435,10 +436,10 @@ body.quake .wrap{animation:quake .5s linear}
     </div>
     <div class="field" id="singleField">
       <label for="nameOne">小人個名（留空就寫「小人」）</label>
-      <input class="input" id="nameOne" maxlength="12" placeholder="例如：背後插刀嗰個" autocomplete="off">
+      <input class="input" id="nameOne" maxlength="30" placeholder="例如：背後插刀嗰個" autocomplete="off">
     </div>
     <div class="field" id="aoeField" hidden>
-      <label for="nameMany">一行一個，最多十二個；唔夠就自動補「小人」</label>
+      <label for="nameMany">一行一個，最多十二個，每個名最多三十字；唔夠就自動補「小人」</label>
       <textarea class="input" id="nameMany" placeholder="講是非嘅&#10;搶功勞嘅&#10;針對我嘅概率"></textarea>
     </div>
     <div class="field">
@@ -1296,16 +1297,27 @@ function drawFigureTo(g, f) {
 function drawName(f) {
   const g = pctx; g.save(); g.globalCompositeOperation = 'source-over';
   g.fillStyle = '#1b120d'; g.textAlign = 'center'; g.textBaseline = 'middle';
+  const chars = [...f.name]; const n = chars.length;
+  if (f.photo) { g.strokeStyle = 'rgba(239,210,126,.92)'; g.lineJoin = 'round'; }
   if (f.big) {
-    const chars = [...f.name].slice(0, 8); const n = chars.length; const size = Math.min(92, Math.floor(330 / n));
-    g.font = `700 ${size}px ${BRUSH_F}`;
-    const top = f.cy - 150 + size / 2;
-    if (f.photo) { g.strokeStyle = 'rgba(239,210,126,.92)'; g.lineWidth = 10; g.lineJoin = 'round'; }
-    chars.forEach((ch, i) => { const yy = top + i * size * 1.02; if (f.photo) g.strokeText(ch, f.cx, yy); g.fillText(ch, f.cx, yy); });
+    // 名長就分成幾行直排（由右至左），字跟住縮細
+    const cols = Math.min(3, Math.ceil(n / 10)); const rows = Math.ceil(n / cols);
+    const size = Math.max(22, Math.min(92, Math.floor(330 / rows), Math.floor(210 / cols)));
+    g.font = `700 ${size}px ${BRUSH_F}`; if (f.photo) g.lineWidth = Math.max(4, size * 0.12);
+    const top = f.cy - 150 + size / 2; const colW = size * 1.08;
+    for (let c = 0; c < cols; c++) {
+      const x = f.cx + ((cols - 1) / 2 - c) * colW;
+      for (let r = 0; r < rows; r++) {
+        const ch = chars[c * rows + r]; if (!ch) break;
+        const y = top + r * size * 1.02; if (f.photo) g.strokeText(ch, x, y); g.fillText(ch, x, y);
+      }
+    }
   } else {
-    const t = [...f.name].slice(0, 6).join('');
-    g.font = `700 ${t.length > 4 ? 22 : 27}px ${BRUSH_F}`;
-    g.fillText(t, f.cx, f.cy + 146);
+    // 群攻：名長就分兩行，字跟住縮細
+    const lines = n > 6 ? 2 : 1; const per = Math.ceil(n / lines);
+    const size = Math.max(11, Math.min(27, Math.floor(170 / per)));
+    g.font = `700 ${size}px ${BRUSH_F}`;
+    for (let l = 0; l < lines; l++) g.fillText(chars.slice(l * per, (l + 1) * per).join(''), f.cx, lines === 1 ? f.cy + 140 : f.cy + 133 + l * (size + 2));
   }
   g.restore();
 }
@@ -1473,6 +1485,7 @@ function bumpCombo() {
     const r = el.getBoundingClientRect(); if (r.width) FX.sparks(r.left + r.width / 2, r.top + r.height / 2, 26, true);
   }
 }
+function chars8(t) { const a = [...t]; return a.length > 8 ? a.slice(0, 8).join('') + '…' : t; }
 function defeat(f) {
   f.dead = true; S.ko++;
   const g = pctx; g.save(); g.globalCompositeOperation = 'source-atop';
@@ -1481,7 +1494,7 @@ function defeat(f) {
   g.moveTo(f.cx - d, f.cy - d * 1.2); g.lineTo(f.cx + d, f.cy + d * 1.2); g.moveTo(f.cx + d, f.cy - d * 1.2); g.lineTo(f.cx - d, f.cy + d * 1.2); g.stroke(); g.restore();
   stampSeal(f.cx, f.cy - (f.big ? 60 : 10), f.big ? 380 : 150, '退散');
   const c = toClient(f.cx, f.cy); FX.sparks(c.x, c.y, 30, true);
-  popWord(c.x, c.y - 30, `${f.name}退散！`, { size: f.big ? 46 : 28, color: '#ffe39a' });
+  popWord(c.x, c.y - 30, `${chars8(f.name)}退散！`, { size: f.big ? 46 : 28, color: '#ffe39a' });
   Sound.play('gong'); updateTally();
   if (!S.figures.some(x => !x.dead)) allDefeated();
   else say(pick([`「${f.name}」冇晒元氣，下一個！`, '又一個退散！手勢好！', '打得好，呢個搞掂！']));
@@ -1762,7 +1775,7 @@ function bindPhotos() {
       const n = addPhotoFiles(quick.files); quick.value = '';
       if (!n) return;
       if (n === 1) { setMode('single'); S.mode = 'single'; S.names = [$('#nameOne').value.trim() || '小人']; }
-      else { setMode('aoe'); S.mode = 'aoe'; S.names = $('#nameMany').value.split('\n').map(s => s.trim()).filter(Boolean).slice(0, 12); }
+      else { setMode('aoe'); S.mode = 'aoe'; S.names = $('#nameMany').value.split('\n').map(s => s.trim()).filter(Boolean).map(s => [...s].slice(0, 30).join('')).slice(0, 12); }
       await decodePhotos(); newPaper(); S.combo = 0; markDone(2); go(3);
       say(n === 1 ? '相貼好喇！揀件兵器，對準佢，打！' : `${n} 張相逐張貼好，群攻開打！`);
     });
@@ -1857,7 +1870,7 @@ function toggleChip(n) {
 }
 async function placePaper() {
   Sound.ensure();
-  const names = currentNames().map(s => [...s].slice(0, 12).join(''));
+  const names = currentNames().map(s => [...s].slice(0, 30).join(''));
   S.mode = pendingMode; S.names = S.mode === 'single' ? [names[0] || '小人'] : names.slice(0, 12);
   await decodePhotos();
   newPaper(); S.combo = 0; markDone(2); go(3); Sound.play('clack');
