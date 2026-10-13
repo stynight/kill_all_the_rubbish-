@@ -1,0 +1,2073 @@
+<!doctype html>
+<html lang="zh-Hant-HK">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="驚蟄打小人：上香拜神、寫小人或者貼相、七件兵器、阿婆代打、祭白虎、化寶、擲筊祈福。">
+<meta name="theme-color" content="#16110e">
+<meta property="og:title" content="賽博打小人">
+<meta property="og:description" content="暴打討厭的一切。上香、打小人、祭白虎、化寶、擲筊，一條龍。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://stynight.github.io/kill_all_the_rubbish-/">
+<meta property="og:image" content="https://stynight.github.io/kill_all_the_rubbish-/icon-512.png">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="打小人">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>賽博打小人</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chiron+Sung+HK:wght@400;700;900&family=LXGW+WenKai+TC:wght@400;700&display=swap">
+<style>
+/* Layout: 橋底攤檔 — 左邊神壇、中間紅磚同小人紙、右邊阿婆；窄屏由上至下疊落 */
+:root{
+  color-scheme: dark;
+  --soot:#16110e; --soot-2:#1f1814; --concrete:#2a231f; --concrete-2:#342b26; --line:#4a3d34;
+  --fg:#f3e9da; --muted:#bcae9d; --faint:#8a7c6e;
+  --paper:#efd27e; --paper-deep:#d6ae55; --ink:#2a1a12;
+  --cinnabar:#d4432f; --cinnabar-deep:#9b2a1c; --gold:#e3b456; --gold-soft:#f2d58f; --jade:#74b398;
+  --brick:#86382a; --brick-2:#9f4630; --mortar:#4d3f37;
+  --smoke-rgb: 214 206 194;
+  --f-display:"Chiron Sung HK","Songti TC","Noto Serif TC","PMingLiU",serif;
+  --f-body:"LXGW WenKai TC","Kaiti TC","STKaiti","DFKai-SB","Songti TC",serif;
+  --r:6px;
+}
+*{box-sizing:border-box}
+html{background:var(--soot)}
+body{
+  background:
+    radial-gradient(1100px 520px at 18% 26%, rgb(212 67 47 / .16), transparent 62%),
+    radial-gradient(900px 420px at 88% 74%, rgb(227 180 86 / .09), transparent 60%),
+    linear-gradient(180deg, #0e0a08 0, var(--soot) 260px, var(--soot-2) 100%);
+  color:var(--fg); font-family:var(--f-body); font-size:16px; line-height:1.6;
+  padding-inline:16px; padding-block:14px 48px; overflow-x:hidden; min-height:100%;
+}
+.wrap{max-width:1280px; margin-inline:auto; display:grid; gap:14px}
+button,input,textarea{font:inherit; color:inherit}
+:focus-visible{outline:2px solid var(--gold); outline-offset:2px}
+
+/* ---------- header ---------- */
+.top{display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:12px 20px; padding-block:6px 4px; border-bottom:1px solid var(--line)}
+.brand{display:flex; align-items:center; gap:14px; min-width:0}
+.seal{flex:none; width:58px; height:58px; display:grid; place-items:center; background:var(--cinnabar); color:var(--paper);
+  font-family:var(--f-display); font-weight:900; font-size:22px; line-height:1.02; text-align:center; border-radius:4px; transform:rotate(-4deg);
+  box-shadow:inset 0 0 0 3px var(--cinnabar), inset 0 0 0 5px var(--paper), 0 6px 18px rgb(0 0 0 / .45)}
+.title{margin:0; font-family:var(--f-display); font-weight:900; font-size:clamp(30px,5vw,46px); letter-spacing:.12em; line-height:1.1; color:var(--paper); text-wrap:balance}
+.sub{margin:2px 0 0; color:var(--muted); font-size:15px}
+.almanac{display:grid; gap:2px; font-size:14px; color:var(--muted); font-variant-numeric:tabular-nums; padding:8px 12px; border:1px solid var(--line); border-radius:var(--r); background:rgb(0 0 0 / .22); min-width:0}
+.almanac b{color:var(--gold-soft); font-weight:700}
+.almanac .hot{color:var(--paper)}
+.toggles{display:flex; gap:8px; flex-wrap:wrap}
+
+.btn{appearance:none; border:1px solid var(--line); background:var(--concrete); color:var(--fg); padding:7px 14px; border-radius:var(--r); cursor:pointer; font-size:15px; line-height:1.3; transition:background .15s, border-color .15s, transform .1s}
+.btn:hover{border-color:var(--gold); background:var(--concrete-2)}
+.btn:active{transform:translateY(1px)}
+.btn[aria-pressed="true"]{border-color:var(--gold); background:#3b2f22; color:var(--gold-soft)}
+.btn.primary{background:var(--cinnabar); border-color:var(--cinnabar); color:#fff6e4; font-weight:700}
+.btn.primary:hover{background:#e0523d}
+.btn.ghost{background:transparent}
+.btn:disabled{opacity:.45; cursor:not-allowed}
+
+/* ---------- steps ---------- */
+.steps{display:flex; gap:6px; overflow-x:auto; padding-block:2px 6px; scrollbar-width:thin}
+.step{flex:none; display:flex; align-items:center; gap:8px; padding:6px 12px 6px 6px; border:1px solid var(--line); border-radius:var(--r); background:rgb(0 0 0 / .2); cursor:pointer; color:var(--muted)}
+.step .n{width:26px; height:26px; display:grid; place-items:center; border-radius:3px; background:var(--concrete-2); font-family:var(--f-display); font-weight:900; color:var(--paper); font-size:15px}
+.step[aria-current="step"]{border-color:var(--gold); color:var(--fg); background:#2f251c}
+.step[aria-current="step"] .n{background:var(--cinnabar)}
+.step.done .n{background:var(--jade); color:#10231b}
+
+/* ---------- hall grid ---------- */
+.hall{display:grid; gap:16px; grid-template-columns:300px minmax(0,1fr) 270px; grid-template-areas:"altar stage granny"; align-items:start}
+.altar{grid-area:altar} .stage{grid-area:stage; min-width:0} .granny{grid-area:granny}
+@media (max-width:1100px){ .hall{grid-template-columns:270px minmax(0,1fr); grid-template-areas:"altar stage" "granny stage"} }
+@media (max-width:760px){ .hall{grid-template-columns:minmax(0,1fr); grid-template-areas:"altar" "stage" "granny"} }
+
+.card{background:linear-gradient(180deg, var(--concrete), var(--soot-2)); border:1px solid var(--line); border-radius:var(--r); padding:14px; min-width:0}
+.card h2,.panel h2{margin:0 0 6px; font-family:var(--f-display); font-weight:900; font-size:22px; letter-spacing:.06em; color:var(--paper); text-wrap:balance}
+.lede{margin:0 0 12px; color:var(--muted); max-width:62ch}
+
+/* ---------- altar ---------- */
+.altar{display:grid; gap:10px; position:sticky; top:calc(env(safe-area-inset-top,0px) + 8px)}
+@media (max-width:760px){ .altar{position:static} }
+.deity-tabs{display:flex; gap:6px}
+.deity-tabs .btn{flex:1; padding-inline:6px; font-size:14px}
+.altar svg{width:100%; height:auto; max-height:380px; display:block}
+@media (max-width:760px){ .altar svg{max-height:260px} }
+.altar-actions{display:flex; gap:8px}
+.altar-actions .btn{flex:1}
+.altar-note{margin:0; font-size:13px; color:var(--faint); font-variant-numeric:tabular-nums; text-align:center}
+.flame{transform-box:fill-box; transform-origin:50% 100%; animation:flick 1.6s ease-in-out infinite}
+.flame.b{animation-duration:1.9s; animation-delay:-.6s}
+@keyframes flick{0%,100%{transform:scale(1,1) skewX(0)}25%{transform:scale(.92,1.08) skewX(3deg)}50%{transform:scale(1.04,.94) skewX(-2deg)}75%{transform:scale(.96,1.05) skewX(2deg)}}
+.tip{animation:ember 1.2s ease-in-out infinite}
+@keyframes ember{0%,100%{opacity:1}50%{opacity:.55}}
+.off{display:none}
+#halo{transition:opacity 1.2s}
+.bowing .hall{animation:bow .8s ease}
+@keyframes bow{0%{transform:none}45%{transform:translateY(10px) scale(.992); filter:brightness(.82)}100%{transform:none}}
+.bowword{position:fixed; inset:0; display:grid; place-items:center; pointer-events:none; z-index:60; font-family:var(--f-display); font-weight:900; font-size:clamp(64px,14vw,150px); color:var(--paper); text-shadow:0 0 30px rgb(227 180 86 / .55); opacity:0}
+.bowword.show{animation:bowword .85s ease forwards}
+@keyframes bowword{0%{opacity:0; transform:scale(.9)}30%{opacity:.95}100%{opacity:0; transform:scale(1.06)}}
+
+/* ---------- stage panels ---------- */
+.panel{display:grid; gap:12px}
+.panel-foot{display:flex; flex-wrap:wrap; gap:8px; justify-content:space-between; align-items:center}
+.ritual-list{margin:0; padding:0; list-style:none; display:grid; gap:6px; counter-reset:r}
+.ritual-list li{display:grid; grid-template-columns:30px 1fr; gap:10px; align-items:baseline; color:var(--muted)}
+.ritual-list li b{color:var(--fg); font-weight:700}
+.ritual-list .k{font-family:var(--f-display); font-weight:900; color:var(--gold); font-size:18px; text-align:center}
+.seg{display:inline-flex; border:1px solid var(--line); border-radius:var(--r); overflow:hidden}
+.seg button{appearance:none; border:0; background:transparent; padding:7px 14px; cursor:pointer; color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--cinnabar); color:#fff6e4}
+.field{display:grid; gap:6px}
+.field label{font-size:14px; color:var(--muted)}
+.input{width:100%; background:#120d0b; border:1px solid var(--line); border-radius:var(--r); padding:10px 12px; font-size:17px; color:var(--fg)}
+textarea.input{min-height:120px; resize:vertical; line-height:1.5}
+.chips{display:flex; flex-wrap:wrap; gap:6px}
+.chip{appearance:none; border:1px dashed var(--line); background:transparent; color:var(--muted); border-radius:3px; padding:4px 10px; cursor:pointer; font-size:14px}
+.chip[aria-pressed="true"]{border-style:solid; border-color:var(--paper-deep); color:var(--paper); background:rgb(239 210 126 / .08)}
+.fine{font-size:13px; color:var(--faint); margin:0}
+
+/* ---------- hitting ---------- */
+.hitbar{display:flex; flex-wrap:wrap; gap:10px 14px; align-items:center; justify-content:space-between}
+.hp{flex:1 1 220px; display:grid; gap:4px; min-width:0}
+.hp .lab{display:flex; justify-content:space-between; font-size:14px; color:var(--muted); font-variant-numeric:tabular-nums}
+.hp .bar{height:10px; background:#120d0b; border:1px solid var(--line); border-radius:2px; overflow:hidden}
+.hp .fill{height:100%; width:100%; background:linear-gradient(90deg, var(--cinnabar-deep), var(--cinnabar)); transition:width .2s}
+.brickwrap{position:relative; width:100%; max-width:540px; margin-inline:auto; aspect-ratio:5/5.7; border-radius:4px; touch-action:manipulation; user-select:none; -webkit-user-select:none;
+  background:
+    linear-gradient(transparent 0 calc(100% - 4px), var(--mortar) 0) 0 0/100% 25%,
+    linear-gradient(90deg, transparent 0 calc(100% - 4px), var(--mortar) 0) 0 0/50% 25%,
+    linear-gradient(90deg, transparent 0 calc(100% - 4px), var(--mortar) 0) 25% 12.5%/50% 25%,
+    linear-gradient(160deg, var(--brick-2), var(--brick) 60%, #6f2d20);
+  box-shadow:inset 0 0 40px rgb(0 0 0 / .55), 0 18px 40px rgb(0 0 0 / .5)}
+#paper{position:absolute; left:8%; top:50%; width:84%; height:auto; aspect-ratio:840/1060; transform:translateY(-50%); display:block; filter:drop-shadow(0 6px 10px rgb(0 0 0 / .45))}
+.brickwrap.thud #paper{animation:thud .14s ease-out}
+@keyframes thud{0%{transform:translateY(-50%)}35%{transform:translate(var(--tx,2px), calc(-50% + var(--ty,4px))) rotate(var(--rot,1deg))}100%{transform:translateY(-50%)}}
+.combo{position:absolute; right:10px; top:8px; font-family:var(--f-display); font-weight:900; color:var(--paper); font-size:26px; text-shadow:0 2px 0 var(--cinnabar-deep), 0 0 18px rgb(0 0 0 / .6); pointer-events:none; font-variant-numeric:tabular-nums}
+.combo.pop{animation:pop .25s ease}
+@keyframes pop{0%{transform:scale(1.5)}100%{transform:scale(1)}}
+.ko{position:absolute; inset:0; display:grid; place-items:center; pointer-events:none}
+.ko span{font-family:var(--f-display); font-weight:900; font-size:clamp(40px,9vw,72px); color:var(--cinnabar); border:5px solid var(--cinnabar); padding:2px 14px; transform:rotate(-12deg); background:rgb(239 210 126 / .2); opacity:.92; letter-spacing:.1em}
+.rack{display:grid; grid-template-columns:repeat(auto-fit,minmax(72px,1fr)); gap:8px}
+.weapon{appearance:none; position:relative; display:grid; justify-items:center; gap:2px; padding:8px 4px 7px; border:1px solid var(--line); border-radius:var(--r); background:var(--concrete); cursor:pointer; color:var(--muted); overflow:hidden}
+.weapon svg{width:40px; height:40px}
+.weapon .wn{font-size:14px; color:var(--fg)}
+.weapon .ws{font-size:11px; color:var(--faint)}
+.weapon[aria-pressed="true"]{border-color:var(--gold); background:#3a2d20; box-shadow:0 0 0 1px var(--gold) inset}
+.weapon.thunder{--charge:0%}
+.weapon.thunder::before{content:""; position:absolute; left:0; bottom:0; width:100%; height:var(--charge); background:linear-gradient(0deg, rgb(227 180 86 / .38), rgb(227 180 86 / .05)); transition:height .25s; z-index:0}
+.weapon.thunder > *{position:relative; z-index:1}
+.weapon.thunder.ready{border-color:var(--gold-soft); animation:ready 1s ease-in-out infinite}
+@keyframes ready{50%{box-shadow:0 0 18px rgb(242 213 143 / .6)}}
+.ticker{min-height:2.8em; padding:8px 12px; border-left:3px solid var(--cinnabar); background:rgb(0 0 0 / .25); color:var(--paper); font-size:16px}
+@media (min-width:1101px){ .ticker{display:none} }
+.auto-row{display:flex; flex-wrap:wrap; gap:8px; align-items:center}
+
+/* ---------- tiger / burn / jiao ---------- */
+.tigerbox{position:relative; width:100%; max-width:560px; margin-inline:auto; touch-action:none}
+.tigerbox svg{width:100%; height:auto; display:block}
+.pork{position:absolute; width:86px; height:auto; left:6%; bottom:4%; cursor:grab; touch-action:none; filter:drop-shadow(0 6px 8px rgb(0 0 0 / .5)); z-index:3}
+.pork.drag{cursor:grabbing}
+.pork.eaten{opacity:0; transition:opacity .3s; pointer-events:none}
+#jaw{transform-box:view-box; transform-origin:120px 124px}
+.chomp #jaw{animation:chomp .22s ease-in-out 4}
+@keyframes chomp{50%{transform:rotate(-17deg)}}
+#oil,#fullStamp{transition:opacity .5s}
+.grain{animation:grain .45s ease-in both}
+@keyframes grain{from{opacity:0; transform:translateY(-36px)}}
+.burning #holes circle{fill:#ff8a3a; animation:ember .6s ease-in-out infinite}
+.blk.flat .f-round{display:none} .blk.round .f-flat{display:none}
+.full .eye-open{display:none} .eye-shut{display:none} .full .eye-shut{display:inline}
+.burnbox{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:14px; align-items:end}
+@media (max-width:560px){ .burnbox{grid-template-columns:minmax(0,1fr)} }
+.bucket{width:100%; max-width:300px; margin-inline:auto; display:block}
+.offer{display:grid; gap:8px}
+.item{appearance:none; display:grid; grid-template-columns:56px 1fr; gap:10px; align-items:center; text-align:left; border:1px solid var(--line); border-radius:var(--r); background:var(--concrete); padding:6px; cursor:pointer; color:var(--fg)}
+.item img,.item .thumb{width:56px; height:56px; object-fit:cover; border-radius:3px; background:var(--paper); display:block}
+.item small{display:block; color:var(--faint)}
+.item.gone{opacity:.35; text-decoration:line-through; cursor:default}
+.flyer{position:fixed; z-index:55; pointer-events:none; border-radius:3px; transition:transform .7s cubic-bezier(.3,.7,.4,1), opacity .7s}
+.jiao-stage{position:relative; height:220px; border:1px solid var(--line); border-radius:var(--r); background:radial-gradient(ellipse at 50% 85%, #3a2a20, #1a1310 70%); overflow:hidden}
+.blk{position:absolute; bottom:22px; width:110px; height:auto; transform-origin:50% 60%}
+.blk.l{left:calc(50% - 125px)} .blk.r{left:calc(50% + 15px)}
+.result{font-family:var(--f-display); font-weight:900; font-size:28px; color:var(--paper); min-height:1.3em; letter-spacing:.08em}
+.result small{display:block; font-family:var(--f-body); font-weight:400; font-size:15px; color:var(--muted); letter-spacing:0}
+.blessing{position:relative; padding:20px; border:1px solid var(--gold); border-radius:var(--r); background:linear-gradient(180deg, rgb(227 180 86 / .12), rgb(212 67 47 / .08)); text-align:center; overflow:hidden}
+.blessing .big{font-family:var(--f-display); font-weight:900; font-size:clamp(28px,6vw,44px); letter-spacing:.14em; color:var(--paper); margin:0}
+.blessing .wish{margin:8px auto 0; max-width:40ch; color:var(--fg); font-size:18px}
+.stats{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; margin-top:12px}
+@media (max-width:560px){ .stats{grid-template-columns:repeat(2,minmax(0,1fr))} }
+.stat{display:grid; gap:0; padding:8px; border-top:1px solid var(--line)}
+.stat .v{font-family:var(--f-display); font-weight:900; font-size:26px; color:var(--gold-soft); font-variant-numeric:tabular-nums}
+.stat .k{font-size:13px; color:var(--faint)}
+
+/* ---------- granny ---------- */
+.granny{display:grid; gap:10px}
+.bubble{position:relative; background:var(--paper); color:var(--ink); border-radius:12px; padding:10px 14px; font-size:17px; line-height:1.45; min-height:4.4em}
+.bubble::after{content:""; position:absolute; left:46%; bottom:-10px; border:10px solid transparent; border-top-color:var(--paper); border-bottom:0}
+.granny svg{width:100%; max-width:240px; height:auto; display:block; margin-inline:auto; cursor:pointer}
+@media (max-width:1100px) and (min-width:761px){ .granny svg{max-width:200px} }
+@media (max-width:760px){ .granny{grid-template-columns:120px minmax(0,1fr); align-items:center} .granny svg{order:-1} .bubble::after{left:-10px; top:20px; bottom:auto; border:10px solid transparent; border-right-color:var(--paper); border-left:0} .granny .auto-row{grid-column:1 / -1} }
+#gArm{transform-box:view-box; transform-origin:78px 128px; transform:rotate(6deg)}
+.strike #gArm{animation:strike var(--gs,.3s) ease-in}
+@keyframes strike{0%{transform:rotate(6deg)}35%{transform:rotate(26deg)}70%{transform:rotate(-74deg)}100%{transform:rotate(6deg)}}
+.mouth-open{display:none} .talk .mouth-open{display:inline} .talk .mouth-shut{display:none}
+
+/* ---------- tally + overlays ---------- */
+.tally{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; border-top:1px solid var(--line); padding-top:10px}
+@media (max-width:560px){ .tally{grid-template-columns:repeat(2,minmax(0,1fr))} }
+.tally .stat{border-top:0}
+#smoke,#fx{position:fixed; inset:0; width:100%; height:100%; pointer-events:none}
+#smoke{z-index:20} #fx{z-index:40}
+#swing,#pops{position:fixed; inset:0; pointer-events:none; z-index:45; overflow:hidden}
+.sw{position:absolute; width:110px; height:110px; margin:-55px 0 0 -55px; animation:swing .22s cubic-bezier(.5,0,.75,0) forwards}
+@keyframes swing{0%{transform:translate(-40px,-70px) rotate(-55deg) scale(1.1); opacity:.95}70%{transform:translate(0,0) rotate(6deg) scale(1,.86); opacity:1}100%{transform:translate(0,0) rotate(0) scale(1); opacity:0}}
+.popw{position:absolute; font-family:var(--f-display); font-weight:900; color:var(--paper); font-size:30px; white-space:nowrap; text-shadow:2px 2px 0 var(--cinnabar-deep), 0 0 12px rgb(0 0 0 / .7); animation:rise .8s ease-out forwards}
+@keyframes rise{0%{transform:translate(-50%,-50%) scale(.6) rotate(var(--r,0deg)); opacity:0}15%{opacity:1; transform:translate(-50%,-60%) scale(1.15) rotate(var(--r,0deg))}100%{transform:translate(-50%,-160%) scale(1) rotate(var(--r,0deg)); opacity:0}}
+#flash{position:fixed; inset:0; background:#fffbe8; opacity:0; pointer-events:none; z-index:58; transition:opacity .5s}
+#flash.on{opacity:.85; transition:none}
+#bolt{position:fixed; inset:0; width:100%; height:100%; pointer-events:none; z-index:57}
+body.quake .wrap{animation:quake .5s linear}
+@keyframes quake{10%,50%,90%{transform:translate(-6px,3px)}30%,70%{transform:translate(6px,-4px)}}
+.toast{position:fixed; left:50%; bottom:calc(env(safe-area-inset-bottom,0px) + 18px); transform:translateX(-50%); z-index:70; background:var(--paper); color:var(--ink); padding:9px 16px; border-radius:4px; box-shadow:0 10px 30px rgb(0 0 0 / .5); font-size:16px; max-width:calc(100% - 32px)}
+.lantern{position:absolute; left:50%; bottom:-80px; width:64px; transform:translateX(-50%); animation:float 6s ease-in forwards}
+@keyframes float{to{transform:translate(-50%,-420px); opacity:0}}
+@media (prefers-reduced-motion:reduce){ *,*::before,*::after{animation-duration:.001ms!important; animation-iteration-count:1!important; transition-duration:.001ms!important} }
+.drop{position:relative; display:grid; gap:8px; justify-items:center; padding:14px 12px; border:1px dashed var(--line); border-radius:var(--r); background:rgb(0 0 0 / .18); cursor:pointer; text-align:center; color:var(--muted); font-size:15px}
+.drop:hover,.drop.over{border-color:var(--gold); color:var(--fg)}
+.drop:focus-within{outline:2px solid var(--gold); outline-offset:2px}
+.drop input{position:absolute; width:1px; height:1px; opacity:0; pointer-events:none}
+.thumbs{display:flex; flex-wrap:wrap; gap:6px; justify-content:center}
+.thumbs:empty{display:none}
+.thumbs img{width:52px; height:52px; object-fit:cover; border-radius:3px; border:1px solid var(--line)}
+.photo-row{display:flex; flex-wrap:wrap; gap:8px; align-items:center; justify-content:space-between}
+</style>
+
+</head>
+<body>
+<div class="wrap" id="wrap">
+<header class="top">
+  <div class="brand">
+    <div class="seal" aria-hidden="true">驚<br>蟄</div>
+    <div>
+      <h1 class="title">賽博打小人</h1>
+      <p class="sub">鵝頸橋底一塊磚、一隻拖鞋，打走身邊一切小人。</p>
+    </div>
+  </div>
+  <div class="almanac" id="almanac" aria-live="polite"><span id="alm1">計緊節氣……</span><span id="alm2"></span></div>
+  <div class="toggles">
+    <button class="btn" id="btnSound" aria-pressed="true">聲音：開</button>
+    <button class="btn" id="btnNose" aria-pressed="false">鼻敏感模式</button>
+  </div>
+</header>
+
+<nav class="steps" id="steps" aria-label="打小人流程">
+  <button class="step" data-step="1" aria-current="step"><span class="n">一</span>奉神上香</button>
+  <button class="step" data-step="2"><span class="n">二</span>寫小人</button>
+  <button class="step" data-step="3"><span class="n">三</span>打小人</button>
+  <button class="step" data-step="4"><span class="n">四</span>祭白虎</button>
+  <button class="step" data-step="5"><span class="n">五</span>化寶</button>
+  <button class="step" data-step="6"><span class="n">六</span>擲筊祈福</button>
+</nav>
+
+<main class="hall" id="hall">
+<section class="altar card" id="altar" aria-label="神壇">
+  <div class="deity-tabs" role="group" aria-label="揀神明">
+    <button class="btn" data-deity="guanyin" aria-pressed="true">觀音娘娘</button>
+    <button class="btn" data-deity="tudi" aria-pressed="false">土地公公</button>
+    <button class="btn" data-deity="caishen" aria-pressed="false">財神爺</button>
+  </div>
+  <svg id="altarSvg" viewBox="0 0 240 300" role="img" aria-label="神壇：神像、香爐、蠟燭同供品">
+    <defs>
+      <radialGradient id="haloG"><stop offset="0" stop-color="#ffe9ad" stop-opacity=".95"/><stop offset=".55" stop-color="#e3b456" stop-opacity=".32"/><stop offset="1" stop-color="#e3b456" stop-opacity="0"/></radialGradient>
+      <linearGradient id="lacq" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5c1b12"/><stop offset="1" stop-color="#2b0c08"/></linearGradient>
+      <linearGradient id="goldG" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#f7dc95"/><stop offset=".5" stop-color="#d7a23f"/><stop offset="1" stop-color="#8c6220"/></linearGradient>
+      <radialGradient id="candleGlow"><stop offset="0" stop-color="#ffcf6b" stop-opacity=".5"/><stop offset="1" stop-color="#ffcf6b" stop-opacity="0"/></radialGradient>
+      <radialGradient id="tipGlow"><stop offset="0" stop-color="#ff7a2e" stop-opacity=".9"/><stop offset="1" stop-color="#ff7a2e" stop-opacity="0"/></radialGradient>
+    </defs>
+    <!-- 神龕 -->
+    <path d="M28 206 V84 Q28 18 120 18 Q212 18 212 84 V206 Z" fill="url(#lacq)" stroke="url(#goldG)" stroke-width="3"/>
+    <path d="M40 206 V90 Q40 32 120 32 Q200 32 200 90 V206 Z" fill="#1d0806" opacity=".6"/>
+    <circle id="halo" cx="120" cy="88" r="54" fill="url(#haloG)" opacity=".5"/>
+
+    <!-- 觀音娘娘 -->
+    <g class="deity" data-d="guanyin">
+      <g fill="#eaa7a2" stroke="#b5615d" stroke-width="1">
+        <ellipse cx="86" cy="196" rx="17" ry="8"/><ellipse cx="154" cy="196" rx="17" ry="8"/>
+        <ellipse cx="103" cy="199" rx="17" ry="8"/><ellipse cx="137" cy="199" rx="17" ry="8"/><ellipse cx="120" cy="201" rx="17" ry="8"/>
+      </g>
+      <path d="M92 96 Q90 52 120 50 Q150 52 148 96 L157 132 Q120 118 83 132 Z" fill="#f7f3ea" stroke="#c9a65a" stroke-width="1.5"/>
+      <path d="M84 128 Q120 112 156 128 L168 192 Q120 204 72 192 Z" fill="#f3eee3" stroke="#c9a65a" stroke-width="1.5"/>
+      <path d="M100 142 Q105 170 96 190 M140 142 Q135 170 144 190 M120 152 Q123 176 120 198" stroke="#d6ccbb" stroke-width="1.5" fill="none"/>
+      <ellipse cx="120" cy="88" rx="17" ry="20" fill="#f3d5b5"/>
+      <path d="M103 83 Q120 66 137 83 Q129 74 120 74 Q111 74 103 83Z" fill="#2b1d16"/>
+      <path d="M100 75 Q120 58 140 75" stroke="#c9a65a" stroke-width="2" fill="none"/>
+      <circle cx="120" cy="80" r="1.8" fill="#d4432f"/>
+      <path d="M109 90 q4 3 8 0 M123 90 q4 3 8 0" stroke="#5b3a2a" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+      <path d="M116 99 q4 2.5 8 0" stroke="#b5615d" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+      <path d="M105 114 Q120 124 135 114" stroke="#e3b456" stroke-width="1.6" fill="none"/>
+      <path d="M120 128 Q117 112 106 104" stroke="#6f9a6a" stroke-width="1.5" fill="none"/>
+      <g fill="#86b07c"><ellipse cx="108" cy="106" rx="3" ry="1.4" transform="rotate(-30 108 106)"/><ellipse cx="113" cy="112" rx="3" ry="1.4" transform="rotate(-50 113 112)"/><ellipse cx="117" cy="119" rx="3" ry="1.4" transform="rotate(-70 117 119)"/></g>
+      <path d="M116 152 Q113 140 117 134 L117 128 L123 128 L123 134 Q127 140 124 152 Z" fill="#e8f1ee" stroke="#9bb8ae" stroke-width="1"/>
+      <ellipse cx="110" cy="152" rx="7" ry="5" fill="#f3d5b5"/><ellipse cx="130" cy="152" rx="7" ry="5" fill="#f3d5b5"/>
+    </g>
+
+    <!-- 土地公公 -->
+    <g class="deity off" data-d="tudi">
+      <rect x="72" y="190" width="96" height="12" rx="3" fill="#5a3a24"/>
+      <path d="M82 124 Q120 108 158 124 L170 194 Q120 206 70 194 Z" fill="#8f2f22" stroke="#e3b456" stroke-width="1.5"/>
+      <path d="M104 116 L120 140 L136 116" stroke="#e3b456" stroke-width="3" fill="none"/>
+      <rect x="86" y="160" width="68" height="7" rx="2" fill="#e3b456"/>
+      <path d="M164 74 L164 196" stroke="#7a4a26" stroke-width="5" stroke-linecap="round"/>
+      <path d="M164 78 Q156 60 167 56 Q179 55 174 69" stroke="#7a4a26" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <circle cx="171" cy="94" r="6" fill="#c98f3a"/><circle cx="171" cy="84" r="4" fill="#c98f3a"/>
+      <circle cx="120" cy="90" r="19" fill="#f1cfa8"/>
+      <path d="M98 84 Q100 62 120 60 Q140 62 142 84 Q120 76 98 84Z" fill="#3b2a1e"/>
+      <circle cx="120" cy="69" r="3" fill="#e3b456"/>
+      <path d="M106 83 q5 -3 10 0 M124 83 q5 -3 10 0" stroke="#fffaf2" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+      <path d="M108 90 q4 -3 8 0 M124 90 q4 -3 8 0" stroke="#5b3a2a" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+      <circle cx="107" cy="97" r="3.5" fill="#e79a86" opacity=".7"/><circle cx="133" cy="97" r="3.5" fill="#e79a86" opacity=".7"/>
+      <path d="M104 98 Q106 138 120 148 Q134 138 136 98 Q128 106 120 104 Q112 106 104 98Z" fill="#fbf7f0" stroke="#d9d0c2" stroke-width="1"/>
+      <path d="M110 101 Q120 96 130 101" stroke="#fbf7f0" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+      <ellipse cx="160" cy="132" rx="7" ry="6" fill="#f1cfa8"/><ellipse cx="96" cy="152" rx="7" ry="6" fill="#f1cfa8"/>
+    </g>
+
+    <!-- 財神爺 -->
+    <g class="deity off" data-d="caishen">
+      <rect x="72" y="190" width="96" height="12" rx="3" fill="#4a2a18"/>
+      <path d="M80 124 Q120 106 160 124 L172 194 Q120 206 68 194 Z" fill="#c23a2a" stroke="#e3b456" stroke-width="1.5"/>
+      <path d="M90 176 Q120 186 150 176" stroke="#e3b456" stroke-width="2" fill="none"/>
+      <circle cx="120" cy="92" r="19" fill="#f1cfa8"/>
+      <ellipse cx="87" cy="72" rx="15" ry="5" fill="#1c1512"/><ellipse cx="153" cy="72" rx="15" ry="5" fill="#1c1512"/>
+      <path d="M100 84 L102 64 Q120 55 138 64 L140 84 Z" fill="#1c1512"/>
+      <rect x="101" y="77" width="38" height="4" fill="#e3b456"/>
+      <path d="M107 86 q5 -2 10 0 M123 86 q5 -2 10 0" stroke="#1c1512" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+      <path d="M108 93 q4 -3 8 0 M124 93 q4 -3 8 0" stroke="#5b3a2a" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+      <path d="M108 105 Q110 134 120 142 Q130 134 132 105 Q120 111 108 105Z" fill="#1c1512"/>
+      <path d="M110 103 Q120 99 130 103" stroke="#1c1512" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+      <ellipse cx="104" cy="158" rx="7" ry="6" fill="#f1cfa8"/><ellipse cx="136" cy="158" rx="7" ry="6" fill="#f1cfa8"/>
+      <path d="M100 152 Q120 162 140 152 L136 164 Q120 170 104 164 Z" fill="url(#goldG)" stroke="#8c6220" stroke-width="1"/>
+      <ellipse cx="120" cy="152" rx="9" ry="6" fill="url(#goldG)" stroke="#8c6220" stroke-width="1"/>
+    </g>
+
+    <!-- 牌匾 -->
+    <rect x="86" y="21" width="68" height="15" fill="#2b0c08" stroke="url(#goldG)" stroke-width="1.5"/>
+    <text x="120" y="32.5" text-anchor="middle" font-size="10" font-weight="900" fill="#e8bd5f" letter-spacing="2" style="font-family:var(--f-display)">有求必應</text>
+
+    <!-- 蠟燭 -->
+    <circle cx="36" cy="146" r="28" fill="url(#candleGlow)"/>
+    <circle cx="204" cy="146" r="28" fill="url(#candleGlow)"/>
+    <rect x="30" y="160" width="12" height="44" rx="1.5" fill="#c22a1c" stroke="#7d160d"/>
+    <rect x="198" y="160" width="12" height="44" rx="1.5" fill="#c22a1c" stroke="#7d160d"/>
+    <path d="M33 166 V198 M201 166 V198" stroke="#e3b456" stroke-width="1" opacity=".7"/>
+    <path d="M36 160 V154 M204 160 V154" stroke="#2a1a12" stroke-width="1.2"/>
+    <g class="flame"><path d="M36 136 Q29 148 36 156 Q43 148 36 136Z" fill="#ffd36b"/><path d="M36 143 Q33 150 36 155 Q39 150 36 143Z" fill="#fff4c8"/></g>
+    <g class="flame b"><path d="M204 136 Q197 148 204 156 Q211 148 204 136Z" fill="#ffd36b"/><path d="M204 143 Q201 150 204 155 Q207 150 204 143Z" fill="#fff4c8"/></g>
+
+    <!-- 供桌 -->
+    <rect x="14" y="204" width="212" height="16" rx="2" fill="#6d1f14" stroke="url(#goldG)" stroke-width="2"/>
+    <path d="M24 220 H216 V294 H24 Z" fill="#a72a1c"/>
+    <path d="M24 229 H216 M24 286 H216" stroke="#e3b456" stroke-width="1.5"/>
+    <text x="120" y="272" text-anchor="middle" font-size="38" font-weight="900" fill="#e8bd5f" style="font-family:var(--f-display)">福</text>
+
+    <!-- 生果 -->
+    <ellipse cx="72" cy="203" rx="20" ry="4" fill="#d8cfbf"/><ellipse cx="168" cy="203" rx="20" ry="4" fill="#d8cfbf"/>
+    <g fill="#f08a24" stroke="#b9601a" stroke-width=".8">
+      <circle cx="64" cy="196" r="7"/><circle cx="79" cy="196" r="7"/><circle cx="71.5" cy="188" r="7"/>
+      <circle cx="160" cy="196" r="7"/><circle cx="175" cy="196" r="7"/><circle cx="167.5" cy="188" r="7"/>
+    </g>
+    <path d="M71 181 q3 -4 7 -3 M167 181 q3 -4 7 -3" stroke="#4f7a3a" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+    <!-- 香爐 -->
+    <path d="M91 178 H149 Q151 200 120 203 Q89 200 91 178Z" fill="url(#goldG)" stroke="#8c6220"/>
+    <path d="M86 182 q-6 -2 -6 4 q0 5 7 4 M154 182 q6 -2 6 4 q0 5 -7 4" stroke="#b98a2e" stroke-width="2.5" fill="none"/>
+    <ellipse cx="120" cy="178" rx="30" ry="6" fill="#b98a2e" stroke="#8c6220"/>
+    <ellipse cx="120" cy="178" rx="25" ry="4" fill="#9d9488"/>
+    <g id="sticks"></g>
+    <path d="M90 178 Q120 188 150 178 L150 181 Q120 191 90 181Z" fill="#c99a3a"/>
+  </svg>
+  <div class="altar-actions">
+    <button class="btn primary" id="btnIncense">上香</button>
+    <button class="btn" id="btnBow">拜三拜</button>
+  </div>
+  <p class="altar-note" id="altarNote">香爐空空，先上三炷香</p>
+</section>
+
+<section class="stage card" id="stage">
+  <!-- 一：奉神 -->
+  <div class="panel" data-panel="1">
+    <h2>今晚嚟打小人</h2>
+    <p class="lede">驚蟄春雷一響，蛇蟲鼠蟻同小人都醒晒。廣東人就趁呢日上香、打小人、祭白虎，求一整年冇是非。唔使等驚蟄，今晚想打就打。</p>
+    <ol class="ritual-list">
+      <li><span class="k">一</span><span><b>奉神上香</b>：喺神壇揀一位神明，上三炷香，拜三拜。</span></li>
+      <li><span class="k">二</span><span><b>寫小人</b>：寫低小人個名；唔知係邊個，就寫「小人」，群攻一次過打晒。</span></li>
+      <li><span class="k">三</span><span><b>打小人</b>：揀兵器狠狠咁打，打到手軟就叫阿婆幫手。</span></li>
+      <li><span class="k">四</span><span><b>祭白虎</b>：用肥豬肉餵飽白虎，再撒芝麻綠豆，佢就唔會咬你。</span></li>
+      <li><span class="k">五</span><span><b>化寶</b>：打爛嘅小人紙、白虎紙同衣紙一齊燒走。</span></li>
+      <li><span class="k">六</span><span><b>擲筊祈福</b>：擲出聖杯，即係神明收貨。</span></li>
+    </ol>
+    <div class="panel-foot">
+      <button class="btn ghost" id="skipToHit">唔理流程，即刻開打</button>
+      <button class="btn primary" data-go="2">上完香，去寫小人</button>
+    </div>
+  </div>
+
+  <!-- 二：寫小人 -->
+  <div class="panel" data-panel="2" hidden>
+    <h2>寫小人</h2>
+    <p class="lede">紙上寫邊個、貼邊個，鞋底就打邊個。名字同相片只會留喺你自己部機，唔會傳出去。</p>
+    <div class="field">
+      <label>打法</label>
+      <div class="seg" role="group" aria-label="打法">
+        <button id="modeSingle" aria-pressed="true">單打・一個名</button>
+        <button id="modeAoe" aria-pressed="false">群攻・一切小人</button>
+      </div>
+    </div>
+    <div class="field" id="singleField">
+      <label for="nameOne">小人個名（留空就寫「小人」）</label>
+      <input class="input" id="nameOne" maxlength="12" placeholder="例如：背後插刀嗰個" autocomplete="off">
+    </div>
+    <div class="field" id="aoeField" hidden>
+      <label for="nameMany">一行一個，最多十二個；唔夠就自動補「小人」</label>
+      <textarea class="input" id="nameMany" placeholder="講是非嘅&#10;搶功勞嘅&#10;針對我嘅概率"></textarea>
+    </div>
+    <div class="field">
+      <label>常見小人（撳一下加入）</label>
+      <div class="chips" id="chips"></div>
+    </div>
+    <div class="field">
+      <label for="photoInput">貼相（可選）</label>
+      <label class="drop" id="drop">
+        <input type="file" id="photoInput" accept="image/*" multiple>
+        <span id="dropText">撳呢度揀相。</span>
+        <span class="thumbs" id="thumbs"></span>
+      </label>
+      <div class="photo-row">
+        <div class="seg" role="group" aria-label="相片貼法">
+          <button type="button" id="fitHead" aria-pressed="true">貼喺個頭</button>
+          <button type="button" id="fitBody" aria-pressed="false">貼滿全身</button>
+        </div>
+        <button class="btn ghost" type="button" id="btnClearPhotos" hidden>清走相片</button>
+      </div>
+      <p class="fine">相片只喺你部機嘅瀏覽器入面處理，唔會上傳去任何地方，閂咗網頁就冇。</p>
+    </div>
+    <div class="panel-foot">
+      <button class="btn ghost" data-go="1">返去上香</button>
+      <button class="btn primary" id="btnPlace">寫好，放上磚頭</button>
+    </div>
+  </div>
+
+  <!-- 三：打小人 -->
+  <div class="panel" data-panel="3" hidden>
+    <div class="hitbar">
+      <div class="hp">
+        <div class="lab"><span id="hpLabel">小人元氣</span><span id="hpNum">100%</span></div>
+        <div class="bar"><div class="fill" id="hpFill"></div></div>
+      </div>
+      <div class="auto-row">
+        <button class="btn" id="btnAuto" aria-pressed="false">阿婆代打</button>
+        <div class="seg" role="group" aria-label="阿婆速度" id="speedSeg">
+          <button data-speed="slow" aria-pressed="false">慢</button>
+          <button data-speed="mid" aria-pressed="true">中</button>
+          <button data-speed="fast" aria-pressed="false">快</button>
+          <button data-speed="mad" aria-pressed="false">癲</button>
+        </div>
+      </div>
+    </div>
+    <div class="brickwrap" id="brickwrap">
+      <canvas id="paper" width="840" height="1060" tabindex="0" aria-label="小人紙：撳落去就打，或者用空白鍵打"></canvas>
+      <div class="combo" id="combo" hidden></div>
+      <div class="ko" id="ko" hidden><span>退散</span></div>
+    </div>
+    <div class="ticker" id="ticker">揀好兵器，對住小人撳落去。</div>
+    <div class="rack" id="rack" role="group" aria-label="兵器"></div>
+    <div class="panel-foot">
+      <button class="btn ghost" id="btnNewPaper">換一張新紙</button>
+      <button class="btn primary" data-go="4">打夠喇，去祭白虎</button>
+    </div>
+  </div>
+
+  <!-- 四：祭白虎 -->
+  <div class="panel" data-panel="4" hidden>
+    <h2>祭白虎</h2>
+    <p class="lede">白虎主是非口舌。打完小人要餵飽佢：拖塊肥豬肉去佢個口度，再撒啲芝麻綠豆，佢食飽就唔會出嚟咬人。</p>
+    <div class="tigerbox" id="tigerbox">
+      <svg id="tigerSvg" viewBox="0 0 360 240" role="img" aria-label="黃紙上印住一隻白虎">
+        <rect x="8" y="8" width="344" height="224" fill="#efd27e" stroke="#b8261e" stroke-width="2"/>
+        <rect x="16" y="16" width="328" height="208" fill="none" stroke="#b8261e" stroke-width="1"/>
+        <text x="330" y="46" text-anchor="middle" font-size="22" font-weight="900" fill="#b8261e" style="font-family:var(--f-display)">白</text>
+        <text x="330" y="72" text-anchor="middle" font-size="22" font-weight="900" fill="#b8261e" style="font-family:var(--f-display)">虎</text>
+        <path d="M108 212 H312" stroke="#1d130d" stroke-width="2" opacity=".3"/>
+        <!-- 尾 -->
+        <path d="M296 134 Q338 122 330 84 Q326 68 314 78" stroke="#1d130d" stroke-width="12" fill="none" stroke-linecap="round"/>
+        <path d="M296 134 Q338 122 330 84 Q326 68 314 78" stroke="#f6e6b8" stroke-width="7" fill="none" stroke-linecap="round"/>
+        <path d="M322 116 l8 -4 M330 98 l8 0" stroke="#1d130d" stroke-width="3" stroke-linecap="round"/>
+        <!-- 腳 -->
+        <g fill="#f6e6b8" stroke="#1d130d" stroke-width="3" stroke-linejoin="round">
+          <path d="M132 166 L130 206 Q141 213 152 206 L152 168Z"/>
+          <path d="M162 170 L162 206 Q173 213 184 206 L182 170Z"/>
+          <path d="M250 168 L250 206 Q261 213 272 206 L270 166Z"/>
+          <path d="M278 160 L282 204 Q293 211 304 204 L296 156Z"/>
+        </g>
+        <!-- 身 -->
+        <path d="M118 120 Q150 92 220 96 Q290 98 300 140 Q304 168 280 178 L124 178 Q100 160 118 120Z" fill="#f6e6b8" stroke="#1d130d" stroke-width="3"/>
+        <g stroke="#1d130d" stroke-width="5" fill="none" stroke-linecap="round">
+          <path d="M178 99 Q173 120 184 138"/><path d="M204 97 Q198 122 210 144"/><path d="M230 98 Q226 124 238 142"/>
+          <path d="M256 103 Q250 128 264 146"/><path d="M280 114 Q274 136 288 152"/><path d="M160 104 Q156 118 162 128"/>
+          <path d="M196 176 q4 -10 0 -18 M230 176 q4 -10 0 -18 M262 176 q4 -10 0 -18"/>
+        </g>
+        <!-- 頭 -->
+        <path d="M60 64 L56 40 L80 56Z M114 54 L130 34 L134 64Z" fill="#f6e6b8" stroke="#1d130d" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M62 58 L60 46 L72 54Z M118 54 L127 44 L128 58Z" fill="#e7a0a0"/>
+        <path d="M52 92 Q56 56 94 54 Q134 56 140 94 Q142 130 118 148 L70 148 Q46 130 52 92Z" fill="#f6e6b8" stroke="#1d130d" stroke-width="3"/>
+        <path d="M84 68 H104 M86 76 H102 M82 84 H106 M94 68 V84" stroke="#1d130d" stroke-width="3" stroke-linecap="round"/>
+        <path d="M56 104 l10 2 M56 114 l10 0 M132 104 l-10 2 M132 114 l-10 0" stroke="#1d130d" stroke-width="2.5" stroke-linecap="round"/>
+        <g class="eye-open">
+          <path d="M68 96 Q78 88 88 96 Q78 102 68 96Z" fill="#f2c14b" stroke="#1d130d" stroke-width="2.5"/>
+          <path d="M102 96 Q112 88 122 96 Q112 102 102 96Z" fill="#f2c14b" stroke="#1d130d" stroke-width="2.5"/>
+          <path d="M78 91 V101 M112 91 V101" stroke="#1d130d" stroke-width="3" stroke-linecap="round"/>
+        </g>
+        <path class="eye-shut" d="M68 97 q10 7 20 0 M102 97 q10 7 20 0" stroke="#1d130d" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M89 108 L101 108 L95 115Z" fill="#c94a3a" stroke="#1d130d" stroke-width="1.5" stroke-linejoin="round"/>
+        <path d="M95 115 V120" stroke="#1d130d" stroke-width="2"/>
+        <path d="M70 124 Q95 117 120 124" stroke="#1d130d" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <g id="jaw">
+          <path d="M70 124 Q95 152 120 124 Q95 134 70 124Z" fill="#b8322a" stroke="#1d130d" stroke-width="2.5" stroke-linejoin="round"/>
+          <path d="M78 126 l3 7 l3 -7 M106 126 l3 7 l3 -7" fill="#fffaf0" stroke="#1d130d" stroke-width="1"/>
+        </g>
+        <g id="oil" opacity="0">
+          <path d="M72 121 Q95 114 118 121" stroke="#fff4c4" stroke-width="2.5" fill="none"/>
+          <ellipse cx="84" cy="131" rx="7" ry="2.2" fill="#fff4c4" opacity=".85"/>
+          <ellipse cx="108" cy="130" rx="4" ry="1.6" fill="#fff4c4" opacity=".7"/>
+        </g>
+        <ellipse id="mouthHot" cx="95" cy="128" rx="40" ry="26" fill="#000" fill-opacity="0"/>
+        <g id="grains"></g>
+        <g id="fullStamp" opacity="0" transform="rotate(-10 286 52)">
+          <rect x="262" y="28" width="48" height="48" fill="none" stroke="#b8261e" stroke-width="4"/>
+          <text x="286" y="64" text-anchor="middle" font-size="32" font-weight="900" fill="#b8261e" style="font-family:var(--f-display)">飽</text>
+        </g>
+      </svg>
+      <div class="pork" id="pork" role="button" tabindex="0" aria-label="肥豬肉：拖去白虎個口，或者撳餵豬肉">
+        <svg viewBox="0 0 100 60" width="100%" aria-hidden="true">
+          <path d="M6 18 Q50 4 94 16 L94 23 Q50 11 6 25Z" fill="#b4673a"/>
+          <path d="M6 25 Q50 11 94 23 L94 37 Q50 27 6 39Z" fill="#fbf2e6"/>
+          <path d="M6 39 Q50 27 94 37 L92 50 Q50 46 8 55Z" fill="#e58f86"/>
+          <path d="M20 46 q14 -6 28 -2 M54 42 q12 -2 24 2" stroke="#fbe1da" stroke-width="2" fill="none"/>
+          <path d="M14 28 q20 -6 40 -6" stroke="#fff" stroke-width="2" fill="none" opacity=".9"/>
+        </svg>
+      </div>
+    </div>
+    <div class="panel-foot">
+      <div class="auto-row">
+        <button class="btn" id="btnFeed">餵豬肉</button>
+        <button class="btn" id="btnGrain">撒芝麻綠豆</button>
+      </div>
+      <button class="btn primary" data-go="5">白虎食飽，去化寶</button>
+    </div>
+  </div>
+
+  <!-- 五：化寶 -->
+  <div class="panel" data-panel="5" hidden>
+    <h2>化寶</h2>
+    <p class="lede">撳一件就掟一件入化寶桶。打爛咗嘅小人紙、食飽咗嘅白虎紙、仲有衣紙同金銀紙，全部燒走，乾手淨腳。</p>
+    <div class="burnbox">
+      <svg class="bucket" id="bucket" viewBox="0 0 300 260" role="img" aria-label="化寶桶">
+        <defs>
+          <linearGradient id="metal" x1="0" x2="1"><stop offset="0" stop-color="#3a3532"/><stop offset=".35" stop-color="#6b645e"/><stop offset=".6" stop-color="#4b4642"/><stop offset="1" stop-color="#2c2826"/></linearGradient>
+          <radialGradient id="emberG" cx="50%" cy="40%"><stop offset="0" stop-color="#ffd27a"/><stop offset=".5" stop-color="#ff6a1f"/><stop offset="1" stop-color="#6b1a08"/></radialGradient>
+        </defs>
+        <ellipse cx="150" cy="248" rx="96" ry="8" fill="#000" opacity=".4"/>
+        <path d="M50 70 L66 236 Q150 254 234 236 L250 70 Z" fill="url(#metal)" stroke="#221e1c" stroke-width="3"/>
+        <path d="M55 120 Q150 138 245 120 M61 184 Q150 202 239 184" stroke="#2a2522" stroke-width="5" fill="none"/>
+        <g id="holes" fill="#1a1412">
+          <circle cx="86" cy="100" r="4"/><circle cx="118" cy="104" r="4"/><circle cx="150" cy="105" r="4"/><circle cx="182" cy="104" r="4"/><circle cx="214" cy="100" r="4"/>
+          <circle cx="92" cy="214" r="4"/><circle cx="124" cy="219" r="4"/><circle cx="156" cy="220" r="4"/><circle cx="188" cy="218" r="4"/><circle cx="214" cy="212" r="4"/>
+        </g>
+        <path d="M72 204 q10 -8 22 0 q-6 10 -22 0Z M196 140 q12 -6 20 2 q-8 8 -20 -2Z" fill="#7a3b1e" opacity=".55"/>
+        <text x="150" y="168" text-anchor="middle" font-size="30" font-weight="900" fill="#25201d" opacity=".85" letter-spacing="6" style="font-family:var(--f-display)">化寶</text>
+        <ellipse cx="150" cy="70" rx="100" ry="22" fill="#141010" stroke="#77706a" stroke-width="5"/>
+        <ellipse id="emberBed" cx="150" cy="74" rx="82" ry="15" fill="url(#emberG)" opacity="0"/>
+        <ellipse id="mouthRef" cx="150" cy="66" rx="90" ry="18" fill="#000" fill-opacity="0"/>
+      </svg>
+      <div class="offer" id="offer">
+        <button class="item" data-item="paper"><canvas class="thumb" id="thumbPaper" width="112" height="112"></canvas><span>小人紙<small>啱啱打爛嗰張</small></span></button>
+        <button class="item" data-item="tiger">
+          <svg class="thumb" viewBox="0 0 56 56" aria-hidden="true"><rect width="56" height="56" fill="#efd27e"/><path d="M28 27 Q38 20 50 28 L48 41 L26 41Z" fill="#f6e6b8" stroke="#1d130d" stroke-width="2"/><circle cx="21" cy="27" r="11" fill="#f6e6b8" stroke="#1d130d" stroke-width="2"/><path d="M36 24 v9 M43 25 v9 M17 22 h8" stroke="#1d130d" stroke-width="2"/></svg>
+          <span>白虎紙<small>食飽咗，送佢走</small></span></button>
+        <button class="item" data-item="money">
+          <svg class="thumb" viewBox="0 0 56 56" aria-hidden="true"><rect width="56" height="56" fill="#f3e3b0"/><rect x="8" y="9" width="40" height="38" fill="#e9cf86" stroke="#b8261e" stroke-width="1.5"/><g fill="#b8261e"><circle cx="17" cy="19" r="2"/><circle cx="28" cy="19" r="2"/><circle cx="39" cy="19" r="2"/><circle cx="17" cy="29" r="2"/><circle cx="28" cy="29" r="2"/><circle cx="39" cy="29" r="2"/><circle cx="17" cy="39" r="2"/><circle cx="28" cy="39" r="2"/><circle cx="39" cy="39" r="2"/></g></svg>
+          <span>衣紙・溪錢<small>打點四方</small></span></button>
+        <button class="item" data-item="gold">
+          <svg class="thumb" viewBox="0 0 56 56" aria-hidden="true"><rect width="56" height="56" fill="#efe6cf"/><rect x="10" y="10" width="36" height="36" fill="#d9a441"/><rect x="18" y="18" width="20" height="20" fill="#f7dc95"/></svg>
+          <span>金銀紙<small>多謝神明</small></span></button>
+        <button class="btn primary" id="btnBurnAll">全部一齊化</button>
+      </div>
+    </div>
+    <div class="panel-foot">
+      <span class="fine" id="burnNote">化寶桶仲未點火</span>
+      <button class="btn primary" data-go="6">化完，去擲筊</button>
+    </div>
+  </div>
+
+  <!-- 六：擲筊 -->
+  <div class="panel" data-panel="6" hidden>
+    <h2>擲筊祈福</h2>
+    <p class="lede">一平一凸係聖杯，神明應承；兩面都平係笑杯，神明笑笑口，叫你諗清楚再問；兩面都凸係陰杯，即係未得。今晚神明開咗保底：連續兩次唔係聖杯，第三次實係。</p>
+    <div class="field">
+      <label for="wish">心中所求</label>
+      <textarea class="input" id="wish" rows="3" maxlength="80">小人退散，貴人扶持；出入平安，事事順利。</textarea>
+    </div>
+    <div class="jiao-stage" id="jiaoStage">
+      <svg class="blk l round" id="blkL" viewBox="0 0 120 70" aria-hidden="true">
+        <g class="f-flat"><path d="M8 52 Q60 -12 112 52 Q60 36 8 52Z" fill="#cf4a33" stroke="#7d1d10" stroke-width="2"/><path d="M22 46 Q60 8 98 46" stroke="#ea8d70" stroke-width="2" fill="none" opacity=".7"/><path d="M34 44 Q60 22 86 44" stroke="#ea8d70" stroke-width="1.5" fill="none" opacity=".5"/></g>
+        <g class="f-round"><path d="M8 52 Q60 -12 112 52 Q60 36 8 52Z" fill="#8f2416" stroke="#5a120a" stroke-width="2"/><path d="M30 33 Q60 6 90 33" stroke="#ff9d7a" stroke-width="5" fill="none" stroke-linecap="round" opacity=".55"/></g>
+      </svg>
+      <svg class="blk r flat" id="blkR" viewBox="0 0 120 70" aria-hidden="true">
+        <g class="f-flat"><path d="M8 52 Q60 -12 112 52 Q60 36 8 52Z" fill="#cf4a33" stroke="#7d1d10" stroke-width="2"/><path d="M22 46 Q60 8 98 46" stroke="#ea8d70" stroke-width="2" fill="none" opacity=".7"/><path d="M34 44 Q60 22 86 44" stroke="#ea8d70" stroke-width="1.5" fill="none" opacity=".5"/></g>
+        <g class="f-round"><path d="M8 52 Q60 -12 112 52 Q60 36 8 52Z" fill="#8f2416" stroke="#5a120a" stroke-width="2"/><path d="M30 33 Q60 6 90 33" stroke="#ff9d7a" stroke-width="5" fill="none" stroke-linecap="round" opacity=".55"/></g>
+      </svg>
+    </div>
+    <div class="auto-row">
+      <button class="btn primary" id="btnThrow">擲筊</button>
+      <div class="result" id="jiaoResult" aria-live="polite"></div>
+    </div>
+    <div class="blessing" id="blessing" hidden>
+      <p class="big">小人退散・貴人扶持</p>
+      <p class="wish" id="wishEcho"></p>
+      <p class="fine" id="bdayEcho"></p>
+      <div class="stats" id="sumStats"></div>
+      <div class="panel-foot" style="justify-content:center; margin-top:12px"><button class="btn" id="btnAgain">再嚟一轉</button></div>
+    </div>
+  </div>
+</section>
+
+<aside class="granny card" id="grannyBox" aria-label="打小人阿婆">
+  <div class="bubble" id="bubble" aria-live="polite">後生，先揀位神明，上三炷香，拜三拜，等神明知道你嚟咗。</div>
+  <svg id="grannySvg" viewBox="0 0 220 260" role="img" aria-label="阿婆坐喺矮凳，手揸拖鞋">
+    <defs>
+      <pattern id="floral" width="14" height="14" patternUnits="userSpaceOnUse">
+        <rect width="14" height="14" fill="#2f4f7a"/><circle cx="4" cy="4" r="2.1" fill="#e8eef8"/><circle cx="4" cy="4" r=".8" fill="#e3b456"/><circle cx="11" cy="10" r="1.6" fill="#f2c4cf"/>
+      </pattern>
+    </defs>
+    <ellipse cx="112" cy="252" rx="86" ry="6" fill="#000" opacity=".35"/>
+    <rect x="4" y="226" width="54" height="24" fill="#86382a" stroke="#4d3f37" stroke-width="2"/>
+    <rect x="12" y="219" width="38" height="11" fill="#efd27e" transform="rotate(-5 31 224)"/>
+    <path d="M24 222 v6 M31 221 v7 M38 222 v6" stroke="#b8261e" stroke-width="1.5" transform="rotate(-5 31 224)"/>
+    <rect x="68" y="206" width="86" height="10" rx="3" fill="#8a5a33"/>
+    <path d="M74 216 L70 250 M148 216 L152 250 M82 216 L86 246 M140 216 L136 246" stroke="#6a4325" stroke-width="5" stroke-linecap="round"/>
+    <path d="M80 196 Q110 206 142 196 L150 214 Q150 226 140 228 L132 248 L118 248 L120 226 L104 226 L104 248 L90 248 L92 228 Q80 226 78 214 Z" fill="#231c19"/>
+    <ellipse cx="97" cy="250" rx="11" ry="4.5" fill="#d24b3e"/>
+    <ellipse cx="125" cy="250" rx="9" ry="4" fill="#e8c4a0"/>
+    <path d="M78 128 Q110 112 142 128 L150 200 Q110 210 70 200 Z" fill="url(#floral)" stroke="#1e3354" stroke-width="2"/>
+    <path d="M98 120 L110 134 L122 120" fill="none" stroke="#e8eef8" stroke-width="3"/>
+    <g fill="#e3b456"><circle cx="110" cy="146" r="2"/><circle cx="110" cy="162" r="2"/><circle cx="110" cy="178" r="2"/></g>
+    <path d="M140 130 Q158 160 144 192 L130 192 Q140 164 128 140Z" fill="url(#floral)" stroke="#1e3354" stroke-width="1.5"/>
+    <circle cx="132" cy="194" r="7" fill="#e8c4a0"/>
+    <rect x="104" y="108" width="12" height="12" fill="#e0b894"/>
+    <circle cx="110" cy="92" r="22" fill="#ecc8a4"/>
+    <path d="M88 90 Q86 64 110 62 Q134 64 132 90 Q128 74 110 74 Q92 74 88 90Z" fill="#b8b2ab"/>
+    <circle cx="110" cy="60" r="10" fill="#a9a39c"/>
+    <path d="M98 57 L123 53" stroke="#e3b456" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="96" cy="102" r="4" fill="#e59a8a" opacity=".55"/><circle cx="124" cy="102" r="4" fill="#e59a8a" opacity=".55"/>
+    <g fill="none" stroke="#3a2a20" stroke-width="2"><circle cx="100" cy="93" r="7"/><circle cx="120" cy="93" r="7"/><path d="M107 93 H113 M93 92 L88 90 M127 92 L132 90"/></g>
+    <circle cx="100" cy="94" r="1.8" fill="#2a1a12"/><circle cx="120" cy="94" r="1.8" fill="#2a1a12"/>
+    <path class="mouth-shut" d="M104 106 q6 3 12 0" stroke="#7a3b2e" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <ellipse class="mouth-open" cx="110" cy="107" rx="5" ry="4" fill="#7a2f25"/>
+    <g id="gArm">
+      <g transform="rotate(-12 60 50)">
+        <ellipse cx="60" cy="47" rx="10" ry="24" fill="#d24b3e" stroke="#8f2a20" stroke-width="1.5"/>
+        <path d="M54 38 L60 49 L66 38" stroke="#fffaf0" stroke-width="3" fill="none" stroke-linecap="round"/>
+      </g>
+      <path d="M72 132 Q58 116 61 98 L72 96 Q74 114 86 126Z" fill="url(#floral)" stroke="#1e3354" stroke-width="1.5"/>
+      <path d="M61 100 Q55 88 57 76 L67 76 Q66 88 72 98Z" fill="#e8c4a0"/>
+      <circle cx="62" cy="72" r="7.5" fill="#e8c4a0"/>
+    </g>
+  </svg>
+  <div class="auto-row">
+    <button class="btn" id="btnAuto2" aria-pressed="false">叫阿婆代打</button>
+    <span class="fine" id="granCount">阿婆幫你打咗 0 下</span>
+  </div>
+</aside>
+</main>
+
+<footer class="tally" aria-label="今晚戰績">
+  <div class="stat"><span class="v" id="tHits">0</span><span class="k">今晚拍咗</span></div>
+  <div class="stat"><span class="v" id="tCombo">0</span><span class="k">最高連擊</span></div>
+  <div class="stat"><span class="v" id="tKO">0</span><span class="k">擊退小人</span></div>
+  <div class="stat"><span class="v" id="tAll">0</span><span class="k">歷來總拍數</span></div>
+</footer>
+</div>
+
+<canvas id="smoke" aria-hidden="true"></canvas>
+<canvas id="fx" aria-hidden="true"></canvas>
+<div id="swing" aria-hidden="true"></div>
+<div id="pops" aria-hidden="true"></div>
+<svg id="bolt" aria-hidden="true"></svg>
+<div id="flash" aria-hidden="true"></div>
+<div class="bowword" id="bowword" aria-hidden="true"></div>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script>
+(() => {
+'use strict';
+/* ================= 基本工具 ================= */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const rand = (a, b) => a + Math.random() * (b - a);
+const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const now = () => performance.now();
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+const NS = 'http://www.w3.org/2000/svg';
+let reduceMotion = false;
+try { reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+
+/* ================= 儲存（只喺呢部機） ================= */
+const STORE_KEY = 'cyber-daxiaoren-v1';
+function loadStore() { try { return JSON.parse(localStorage.getItem(STORE_KEY)) || {}; } catch (e) { return {}; } }
+const store = Object.assign({ allHits: 0, sound: true, nose: false, deity: 'guanyin', rounds: 0 }, loadStore());
+function saveStore() { try { localStorage.setItem(STORE_KEY, JSON.stringify(store)); } catch (e) {} }
+
+/* ================= 狀態 ================= */
+const S = {
+  step: 1, done: new Set(),
+  deity: store.deity,
+  sticks: [], bows: 0, bowing: false,
+  mode: 'single', names: ['小人'], figures: [],
+  weapon: 'slipper',
+  hits: 0, granHits: 0, combo: 0, lastHit: 0, maxCombo: 0, ko: 0,
+  thunder: 0,
+  fed: false, grains: false,
+  burned: {}, heat: 0,
+  throws: 0, miss: 0, blessed: false,
+  auto: false, speed: 'mid', chantN: 0,
+  sound: store.sound !== false, nose: !!store.nose,
+  term: null, lastSay: 0
+};
+
+/* ================= 聲音：全部即場合成 ================= */
+const Sound = (() => {
+  let ctx = null, master = null, noiseBuf = null;
+  function ensure() {
+    if (!S.sound) return null;
+    if (!ctx) {
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return null;
+      try { ctx = new AC(); } catch (e) { return null; }
+      master = ctx.createGain(); master.gain.value = 0.7; master.connect(ctx.destination);
+      const len = Math.floor(ctx.sampleRate * 2);
+      noiseBuf = ctx.createBuffer(1, len, ctx.sampleRate);
+      const d = noiseBuf.getChannelData(0);
+      for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+    }
+    if (ctx.state === 'suspended') ctx.resume().catch(() => {});
+    return ctx;
+  }
+  function noise(t, dur, o = {}) {
+    const { type = 'bandpass', f = 1500, f2 = null, q = 1, gain = 0.6, attack = 0.002 } = o;
+    const src = ctx.createBufferSource(); src.buffer = noiseBuf; src.loop = true;
+    const flt = ctx.createBiquadFilter(); flt.type = type; flt.Q.value = q;
+    flt.frequency.setValueAtTime(f, t);
+    if (f2) flt.frequency.exponentialRampToValueAtTime(f2, t + dur);
+    const g = ctx.createGain();
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(gain, t + attack);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    src.connect(flt); flt.connect(g); g.connect(master);
+    src.start(t, Math.random() * 1.5); src.stop(t + dur + 0.05);
+  }
+  function tone(t, freq, dur, o = {}) {
+    const { type = 'sine', gain = 0.4, attack = 0.003, f2 = null } = o;
+    const osc = ctx.createOscillator(); osc.type = type;
+    osc.frequency.setValueAtTime(freq, t);
+    if (f2) osc.frequency.exponentialRampToValueAtTime(f2, t + dur);
+    const g = ctx.createGain();
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(gain, t + attack);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    osc.connect(g); g.connect(master); osc.start(t); osc.stop(t + dur + 0.05);
+  }
+  const sfx = {
+    slap() { const t = ctx.currentTime; noise(t, 0.09, { f: 2200, q: 0.8, gain: 0.9 }); noise(t, 0.05, { type: 'lowpass', f: 500, gain: 0.5 }); tone(t, 140, 0.07, { gain: 0.35, f2: 70 }); },
+    thud() { const t = ctx.currentTime; noise(t, 0.12, { f: 700, q: 1, gain: 0.85 }); tone(t, 95, 0.15, { gain: 0.6, f2: 48 }); },
+    heel() { const t = ctx.currentTime; noise(t, 0.06, { f: 2600, q: 1, gain: 0.6 }); tone(t, 1900, 0.05, { type: 'triangle', gain: 0.25 }); tone(t + 0.02, 120, 0.08, { gain: 0.3, f2: 60 }); },
+    clog() { const t = ctx.currentTime; tone(t, 720, 0.09, { type: 'triangle', gain: 0.5 }); tone(t, 1180, 0.06, { gain: 0.25 }); tone(t + 0.07, 640, 0.08, { type: 'triangle', gain: 0.35 }); noise(t, 0.04, { f: 1800, q: 2, gain: 0.3 }); },
+    whip() { const t = ctx.currentTime; noise(t, 0.16, { f: 5000, f2: 700, q: 1.2, gain: 0.45, attack: 0.03 }); noise(t + 0.15, 0.05, { f: 3000, q: 0.7, gain: 0.9 }); },
+    pan() { const t = ctx.currentTime; noise(t, 0.05, { f: 3000, q: 0.5, gain: 0.7 }); [420, 1131, 1873, 2654, 3420].forEach((f, i) => tone(t, f, 1.3 - i * 0.15, { gain: 0.22 / (i + 1) })); tone(t, 95, 0.18, { gain: 0.4, f2: 55 }); },
+    thunder() { const t = ctx.currentTime; noise(t, 0.18, { f: 3000, q: 0.4, gain: 1 }); noise(t + 0.05, 2.8, { type: 'lowpass', f: 380, f2: 90, q: 0.7, gain: 1, attack: 0.08 }); tone(t + 0.05, 55, 1.6, { gain: 0.6, f2: 32 }); for (let i = 0; i < 6; i++) noise(t + 0.3 + i * 0.28 + Math.random() * 0.1, 0.4, { type: 'lowpass', f: 260, gain: 0.5 }); },
+    bell() { const t = ctx.currentTime; [880, 1777, 2637, 3590].forEach((f, i) => tone(t, f, 2.2 - i * 0.4, { gain: 0.18 / (i + 1), attack: 0.005 })); },
+    ding() { const t = ctx.currentTime; tone(t, 1320, 0.4, { gain: 0.18 }); tone(t + 0.05, 1980, 0.35, { gain: 0.1 }); },
+    chomp() { const t = ctx.currentTime; for (let i = 0; i < 4; i++) { noise(t + i * 0.22, 0.07, { f: 900, q: 1.5, gain: 0.55 }); tone(t + i * 0.22, 110, 0.08, { gain: 0.3, f2: 70 }); } tone(t, 80, 0.8, { type: 'sawtooth', gain: 0.07, f2: 58 }); },
+    clack() { const t = ctx.currentTime; tone(t, 560, 0.07, { type: 'triangle', gain: 0.45 }); noise(t, 0.03, { f: 2000, q: 3, gain: 0.25 }); },
+    whoosh() { const t = ctx.currentTime; noise(t, 0.35, { f: 600, f2: 2400, q: 0.8, gain: 0.3, attack: 0.12 }); },
+    ignite() { const t = ctx.currentTime; noise(t, 0.5, { f: 800, f2: 3000, q: 0.6, gain: 0.35, attack: 0.05 }); },
+    crackle() { const t = ctx.currentTime; for (let i = 0; i < 5; i++) noise(t + Math.random() * 0.5, 0.02, { f: rand(1500, 4500), q: 4, gain: rand(0.1, 0.35) }); },
+    sneeze() { const t = ctx.currentTime; noise(t, 0.35, { f: 900, f2: 2400, q: 2, gain: 0.3, attack: 0.25 }); noise(t + 0.38, 0.22, { f: 3800, q: 0.8, gain: 0.9 }); },
+    combo(n) { const t = ctx.currentTime; const b = 660 * Math.pow(2, Math.min(n, 12) / 12); tone(t, b, 0.25, { type: 'triangle', gain: 0.15 }); tone(t + 0.06, b * 1.5, 0.25, { type: 'triangle', gain: 0.1 }); },
+    fanfare() { const t = ctx.currentTime; [523, 659, 784, 1047].forEach((f, i) => tone(t + i * 0.12, f, 0.5, { type: 'triangle', gain: 0.18 })); },
+    gong() { const t = ctx.currentTime; [110, 165, 223, 296].forEach((f, i) => tone(t, f, 2.5, { gain: 0.3 / (i + 1) })); noise(t, 0.1, { f: 1500, q: 0.5, gain: 0.3 }); },
+    tick() { const t = ctx.currentTime; tone(t, rand(2200, 3200), 0.03, { type: 'triangle', gain: 0.06 }); }
+  };
+  function play(name, ...args) {
+    if (!S.sound) return;
+    const c = ensure(); if (!c || !sfx[name]) return;
+    try { sfx[name](...args); } catch (e) {}
+  }
+  return { play, ensure };
+})();
+
+/* ================= 小提示 ================= */
+let toastTimer = 0;
+function toast(msg, ms = 2600) {
+  const el = $('#toast'); el.textContent = msg; el.hidden = false;
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => { el.hidden = true; }, ms);
+}
+function updateTally() {
+  $('#tHits').textContent = S.hits;
+  $('#tCombo').textContent = S.maxCombo;
+  $('#tKO').textContent = S.ko;
+  $('#tAll').textContent = store.allHits;
+  const gc = $('#granCount'); if (gc) gc.textContent = `阿婆幫你打咗 ${S.granHits} 下`;
+}
+
+/* ================= 香火煙霧 ================= */
+const Smoke = (() => {
+  const cv = $('#smoke'); const ctx = cv.getContext('2d');
+  let W = 0, H = 0, DPR = 1, last = now(), t = 0;
+  const parts = []; const emitters = new Map();
+  const sprite = document.createElement('canvas'); sprite.width = sprite.height = 64;
+  function paintSprite() {
+    const g = sprite.getContext('2d'); g.clearRect(0, 0, 64, 64);
+    let c = '214 206 194';
+    try { c = getComputedStyle(document.documentElement).getPropertyValue('--smoke-rgb').trim() || c; } catch (e) {}
+    const [r, gg, b] = c.split(/\s+/).map(Number);
+    const rg = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+    rg.addColorStop(0, `rgba(${r},${gg},${b},0.9)`);
+    rg.addColorStop(0.45, `rgba(${r},${gg},${b},0.35)`);
+    rg.addColorStop(1, `rgba(${r},${gg},${b},0)`);
+    g.fillStyle = rg; g.fillRect(0, 0, 64, 64);
+  }
+  function resize() {
+    DPR = Math.min(window.devicePixelRatio || 1, 1.5); W = innerWidth; H = innerHeight;
+    cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR); ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  }
+  function emit(x, y, o = {}) {
+    if (parts.length > 700) return;
+    parts.push({
+      x, y, vx: (o.vx || 0) + rand(-6, 6), vy: (o.vy != null ? o.vy : -rand(18, 34)) + rand(-4, 4),
+      life: 0, max: (o.life || 5) * rand(0.8, 1.2), size: (o.size || 6) * rand(0.8, 1.2), grow: (o.grow || 14) * rand(0.8, 1.2),
+      a: (o.alpha || 0.14) * rand(0.8, 1.2), seed: Math.random() * 1000, swirl: o.swirl != null ? o.swirl : 1
+    });
+  }
+  function setEmitter(id, fn, rate, opts = {}) {
+    const old = emitters.get(id);
+    emitters.set(id, { fn, rate, opts, acc: old ? old.acc : 0 });
+  }
+  function removeEmitter(id) { emitters.delete(id); }
+  function puff(x, y, n = 20, o = {}) { for (let i = 0; i < n; i++) emit(x + rand(-20, 20), y + rand(-10, 10), Object.assign({ size: 18, grow: 30, alpha: 0.12, vy: -rand(10, 40), life: 3 }, o)); }
+  function blowAway() { parts.forEach(p => { p.vx += rand(160, 320); p.vy -= rand(20, 80); p.max = Math.min(p.max, p.life + 1.2); }); }
+  function frame() {
+    const tn = now(); const dt = Math.min(0.05, (tn - last) / 1000); last = tn; t += dt;
+    if (!document.hidden) {
+      const rateK = (S.nose ? 0.5 : 1) * (reduceMotion ? 0.4 : 1);
+      for (const e of emitters.values()) {
+        const p = e.fn(); if (!p) continue;
+        e.acc += e.rate * dt * rateK;
+        while (e.acc >= 1) { e.acc -= 1; emit(p.x + rand(-(p.w || 1), (p.w || 1)), p.y, e.opts); }
+      }
+      ctx.clearRect(0, 0, W, H);
+      const wind = Math.sin(t * 0.13) * 6 + Math.sin(t * 0.051) * 4;
+      const alphaK = S.nose ? 0.35 : 1;
+      for (let i = parts.length - 1; i >= 0; i--) {
+        const q = parts[i]; q.life += dt;
+        if (q.life >= q.max || q.y < -160) { parts.splice(i, 1); continue; }
+        const k = q.life / q.max;
+        q.vx += (Math.sin(t * 1.7 + q.seed + q.y * 0.02) * 22 * q.swirl + wind - q.vx * 0.6) * dt;
+        q.vy += (-4 - q.vy * 0.08) * dt;
+        q.x += q.vx * dt; q.y += q.vy * dt; q.size += q.grow * dt;
+        const fade = k < 0.12 ? k / 0.12 : 1 - (k - 0.12) / 0.88;
+        ctx.globalAlpha = Math.max(0, q.a * fade * alphaK);
+        const s = q.size; ctx.drawImage(sprite, q.x - s / 2, q.y - s / 2, s, s);
+      }
+      ctx.globalAlpha = 1;
+    }
+    requestAnimationFrame(frame);
+  }
+  function start() { paintSprite(); resize(); addEventListener('resize', resize); requestAnimationFrame(frame); }
+  return { start, emit, puff, setEmitter, removeEmitter, blowAway };
+})();
+
+/* ================= 紙碎、火花、火焰、彩紙 ================= */
+const FX = (() => {
+  const cv = $('#fx'); const ctx = cv.getContext('2d');
+  let W = 0, H = 0, DPR = 1, last = now();
+  const P = [];
+  const flameSprite = document.createElement('canvas'); flameSprite.width = flameSprite.height = 64;
+  (() => {
+    const g = flameSprite.getContext('2d'); const rg = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+    rg.addColorStop(0, 'rgba(255,244,200,1)'); rg.addColorStop(0.35, 'rgba(255,170,60,.75)'); rg.addColorStop(0.7, 'rgba(220,70,20,.25)'); rg.addColorStop(1, 'rgba(160,30,10,0)');
+    g.fillStyle = rg; g.fillRect(0, 0, 64, 64);
+  })();
+  function resize() {
+    DPR = Math.min(window.devicePixelRatio || 1, 2); W = innerWidth; H = innerHeight;
+    cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR); ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  }
+  function add(p) { if (P.length > 1100) P.splice(0, 60); p.life = 0; P.push(p); }
+  const PAPER = ['#efd27e', '#e6c56a', '#f3dc95', '#d9b25a', '#f6e4a8'];
+  function burstHit(x, y, power = 1, colors) {
+    const n = Math.round((10 + Math.random() * 8) * power * (reduceMotion ? 0.3 : 1));
+    for (let i = 0; i < n; i++) {
+      const a = rand(-Math.PI, 0) + rand(-0.4, 0.4); const sp = rand(140, 440) * Math.sqrt(power);
+      add({ k: 'bit', x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, g: 980, max: rand(0.6, 1.3), w: rand(4, 11), h: rand(3, 7), rot: rand(0, 6.28), vr: rand(-16, 16), c: pick(colors || PAPER) });
+    }
+    for (let i = 0; i < 5 * power; i++) add({ k: 'dust', x: x + rand(-12, 12), y: y + rand(-8, 8), vx: rand(-70, 70), vy: rand(-90, -20), g: 0, max: rand(0.5, 0.9), s: rand(14, 30) });
+  }
+  function sparks(x, y, n = 24, hot = false) {
+    for (let i = 0; i < n * (reduceMotion ? 0.3 : 1); i++) {
+      const a = rand(0, Math.PI * 2), sp = rand(200, 700);
+      add({ k: 'spark', x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, g: 600, max: rand(0.3, 0.7), c: hot ? '#ffd27a' : '#fff4c8' });
+    }
+  }
+  function ember(x, y) { add({ k: 'ember', x, y, vx: rand(-40, 40), vy: rand(-220, -90), g: -30, max: rand(0.8, 1.8), s: rand(1.2, 2.6) }); }
+  function flame(x, y, s = 1) { add({ k: 'flame', x, y, vx: rand(-14, 14), vy: rand(-120, -70) * s, g: -60, max: rand(0.35, 0.7), s: rand(26, 46) * s }); }
+  function ash(x, y) { add({ k: 'ash', x, y, vx: rand(-8, 8), vy: rand(10, 30), g: 40, max: rand(1.2, 2), s: rand(1, 2.2) }); }
+  function confetti(n = 120) {
+    const cols = ['#e3b456', '#f2d58f', '#d4432f', '#efd27e', '#c0c6cf', '#74b398'];
+    for (let i = 0; i < n * (reduceMotion ? 0.3 : 1); i++) add({ k: 'conf', x: rand(0, W), y: rand(-H * 0.4, -10), vx: rand(-60, 60), vy: rand(60, 200), g: 60, max: rand(2.6, 4.2), w: rand(7, 14), h: rand(4, 8), rot: rand(0, 6.28), vr: rand(-6, 6), c: pick(cols), ph: rand(0, 6.28) });
+  }
+  function sparkle(x, y, n = 18) {
+    for (let i = 0; i < n; i++) { const a = rand(0, Math.PI * 2), r = rand(10, 70); add({ k: 'ember', x: x + Math.cos(a) * r, y: y + Math.sin(a) * r, vx: 0, vy: rand(-40, -10), g: 0, max: rand(0.8, 1.6), s: rand(1.4, 2.8), gold: true }); }
+  }
+  function frame() {
+    const tn = now(); const dt = Math.min(0.05, (tn - last) / 1000); last = tn;
+    ctx.clearRect(0, 0, W, H);
+    for (let i = P.length - 1; i >= 0; i--) {
+      const p = P[i]; p.life += dt;
+      if (p.life >= p.max) { P.splice(i, 1); continue; }
+      p.vy += (p.g || 0) * dt; p.x += p.vx * dt; p.y += p.vy * dt;
+      const k = p.life / p.max; const fade = 1 - k;
+      if (p.k === 'bit' || p.k === 'conf') {
+        p.rot += p.vr * dt; if (p.k === 'conf') { p.vx *= 0.99; p.vy = Math.min(p.vy, 160); }
+        ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot);
+        if (p.k === 'conf') ctx.scale(1, Math.cos(p.life * 6 + p.ph));
+        ctx.globalAlpha = p.k === 'conf' ? Math.min(1, fade * 2) : fade;
+        ctx.fillStyle = p.c; ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h); ctx.restore();
+      } else if (p.k === 'dust') {
+        ctx.globalAlpha = 0.22 * fade; ctx.fillStyle = '#e8dcc6'; ctx.beginPath(); ctx.arc(p.x, p.y, p.s * (0.6 + k), 0, Math.PI * 2); ctx.fill();
+      } else if (p.k === 'spark') {
+        ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = fade; ctx.strokeStyle = p.c; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p.x - p.vx * 0.03, p.y - p.vy * 0.03); ctx.stroke();
+        ctx.globalCompositeOperation = 'source-over';
+      } else if (p.k === 'ember') {
+        ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = fade * (0.6 + Math.random() * 0.4);
+        ctx.fillStyle = p.gold ? '#ffe39a' : '#ff8a3a'; ctx.beginPath(); ctx.arc(p.x, p.y, p.s, 0, Math.PI * 2); ctx.fill();
+        ctx.globalCompositeOperation = 'source-over';
+      } else if (p.k === 'flame') {
+        ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = Math.min(1, fade * 1.3);
+        const s = p.s * (1 - k * 0.6); ctx.drawImage(flameSprite, p.x - s / 2, p.y - s / 2, s, s);
+        ctx.globalCompositeOperation = 'source-over';
+      } else if (p.k === 'ash') {
+        ctx.globalAlpha = 0.7 * fade; ctx.fillStyle = '#9d9488'; ctx.fillRect(p.x, p.y, p.s, p.s);
+      }
+    }
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(frame);
+  }
+  function start() { resize(); addEventListener('resize', resize); requestAnimationFrame(frame); }
+  return { start, burstHit, sparks, ember, flame, ash, confetti, sparkle };
+})();
+
+/* ================= 打擊特效 ================= */
+function popWord(x, y, text, o = {}) {
+  const el = document.createElement('div'); el.className = 'popw'; el.textContent = text;
+  el.style.left = x + 'px'; el.style.top = y + 'px'; el.style.setProperty('--r', rand(-14, 14).toFixed(1) + 'deg');
+  if (o.size) el.style.fontSize = o.size + 'px';
+  if (o.color) el.style.color = o.color;
+  $('#pops').appendChild(el); setTimeout(() => el.remove(), 850);
+}
+function swingAt(x, y, wid) {
+  if (reduceMotion) return;
+  const el = document.createElement('div'); el.className = 'sw'; el.innerHTML = icon(wid, 110);
+  el.style.left = x + 'px'; el.style.top = y + 'px';
+  $('#swing').appendChild(el); setTimeout(() => el.remove(), 260);
+}
+function thudPaper(power = 1) {
+  if (reduceMotion) return;
+  const bw = $('#brickwrap');
+  bw.style.setProperty('--tx', (rand(-4, 4) * power).toFixed(1) + 'px');
+  bw.style.setProperty('--ty', (rand(3, 7) * power).toFixed(1) + 'px');
+  bw.style.setProperty('--rot', (rand(-1.2, 1.2) * power).toFixed(2) + 'deg');
+  bw.classList.remove('thud'); void bw.offsetWidth; bw.classList.add('thud');
+}
+function quake() {
+  if (reduceMotion) return;
+  document.body.classList.remove('quake'); void document.body.offsetWidth; document.body.classList.add('quake');
+  setTimeout(() => document.body.classList.remove('quake'), 520);
+}
+function lightning(tx, ty) {
+  const svg = $('#bolt'); const W = innerWidth, H = innerHeight;
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  const bolt = (x0, y0, x1, y1, segs, jit) => {
+    let x = x0, d = `M${x0.toFixed(1)} ${y0.toFixed(1)}`;
+    for (let i = 1; i <= segs; i++) {
+      const k = i / segs; const nx = x + (x1 - x) / (segs - i + 1) + rand(-jit, jit) * (1 - k);
+      const ny = y0 + (y1 - y0) * k; d += ` L${nx.toFixed(1)} ${ny.toFixed(1)}`; x = nx;
+    }
+    return d;
+  };
+  const main = bolt(tx + rand(-140, 140), -10, tx, ty, 16, 46);
+  let forks = '';
+  for (let i = 0; i < 3; i++) {
+    const fy = rand(ty * 0.25, ty * 0.7), fx = tx + rand(-120, 120);
+    forks += `<path d="${bolt(fx + rand(-40, 40), fy - rand(60, 120), fx + rand(-90, 90), fy + rand(40, 120), 6, 22)}" stroke="#fff" stroke-width="1.4" fill="none" opacity=".75"/>`;
+  }
+  svg.innerHTML = `<path d="${main}" stroke="#fff3c0" stroke-width="10" fill="none" opacity=".35" stroke-linejoin="round"/><path d="${main}" stroke="#ffffff" stroke-width="3" fill="none" stroke-linejoin="round"/>${forks}`;
+  const fl = $('#flash'); fl.classList.add('on');
+  setTimeout(() => fl.classList.remove('on'), 90);
+  setTimeout(() => { fl.classList.add('on'); setTimeout(() => fl.classList.remove('on'), 60); }, 180);
+  setTimeout(() => { svg.innerHTML = ''; }, 420);
+  quake();
+}
+
+/* ================= 神壇：神明、上香、拜神 ================= */
+const STICK_X = [120, 110, 130, 103, 137, 115, 125, 97, 143];
+const STICK_LEN = 76, STICK_MIN = 12, BURN_MS = 4 * 60 * 1000, STICK_BASE = 181;
+const DEITY_LINES = {
+  guanyin: '觀音娘娘慈悲，保佑你出入平安、小人遠離。',
+  tudi: '土地公公管一方，邊個喺你身邊搞小動作，佢最清楚。',
+  caishen: '財神爺都拜埋，順手求個幾千萬大獎啦！'
+};
+function litCount() { return S.sticks.filter(s => s.lit).length; }
+function renderDeity() {
+  $$('#altarSvg .deity').forEach(g => g.classList.toggle('off', g.dataset.d !== S.deity));
+  $$('.deity-tabs .btn').forEach(b => b.setAttribute('aria-pressed', b.dataset.deity === S.deity));
+}
+function setHalo() {
+  const v = 0.42 + Math.min(litCount(), 3) * 0.1 + (S.bows ? 0.18 : 0);
+  $('#halo').setAttribute('opacity', Math.min(1, v).toFixed(2));
+}
+function updateAltarNote() {
+  const lit = litCount(); const el = $('#altarNote');
+  if (!lit && !S.sticks.length) el.textContent = '香爐空空，先上三炷香';
+  else if (lit < 3) el.textContent = `燒緊 ${lit} 炷香・傳統係三炷`;
+  else el.textContent = `燒緊 ${lit} 炷香・已拜 ${S.bows} 次`;
+  setHalo();
+}
+function tipPos(el) {
+  const r = el.getBoundingClientRect();
+  if (!r.width) return null;
+  return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+}
+function burnerPos() {
+  const r = $('#altarSvg').getBoundingClientRect(); if (!r.width) return null;
+  return { x: r.left + r.width * 0.5, y: r.top + r.height * (176 / 300), w: r.width * 0.08 };
+}
+function addStick() {
+  Sound.ensure();
+  const used = new Set(S.sticks.map(s => s.slot));
+  const slot = STICK_X.findIndex((_, i) => !used.has(i));
+  if (slot < 0) { toast('香爐插滿喇，等啲香燒一陣先'); say('慢慢嚟，心誠就得，唔使插到成個香爐都係。'); return; }
+  const x = STICK_X[slot];
+  const g = document.createElementNS(NS, 'g');
+  g.innerHTML =
+    `<rect class="stem" x="${x - 1.3}" y="${STICK_BASE - STICK_LEN}" width="2.6" height="${STICK_LEN}" fill="#6e2a1a"/>` +
+    `<rect x="${x - 1.6}" y="166" width="3.2" height="15" fill="#c22a1c"/>` +
+    `<circle class="glow" cx="${x}" cy="${STICK_BASE - STICK_LEN}" r="7" fill="url(#tipGlow)"/>` +
+    `<circle class="tip" cx="${x}" cy="${STICK_BASE - STICK_LEN}" r="2" fill="#ff5a1f"/>`;
+  $('#sticks').appendChild(g);
+  const st = { slot, x, born: Date.now(), lit: true, g, len: STICK_LEN };
+  S.sticks.push(st);
+  const tip = g.querySelector('.tip');
+  Smoke.setEmitter('stick' + slot, () => (st.lit ? tipPos(tip) : null), 9, { size: 3, grow: 13, alpha: 0.22, vy: -30, life: 5.5 });
+  Smoke.setEmitter('burner', () => (litCount() ? tipPos($('#halo')) && burnerPos() : null), 2.2, { size: 22, grow: 30, alpha: 0.06, vy: -14, life: 6, swirl: 0.5 });
+  Sound.play('ignite');
+  const p = tipPos(tip); if (p) FX.sparkle(p.x, p.y, 6);
+  const lit = litCount();
+  if (lit === 1) say('第一炷，點著喇。再上多兩炷，湊夠三炷。');
+  else if (lit === 2) say('第二炷，好。差一炷咋。');
+  else if (lit === 3) { say('三炷香齊晒，神明收到。拜三拜就得喇。'); toast('三炷香齊晒，可以拜三拜'); }
+  else if (lit > 3) say(pick(['多上幾炷？心意神明收到。', '咁多香，阿婆都要開窗喇。']));
+  updateAltarNote();
+}
+function tickIncense() {
+  const t = Date.now();
+  S.sticks.forEach(st => {
+    if (!st.lit) return;
+    const k = Math.min(1, (t - st.born) / BURN_MS);
+    const len = STICK_LEN - (STICK_LEN - STICK_MIN) * k; st.len = len;
+    const y = STICK_BASE - len;
+    const stem = st.g.querySelector('.stem'); stem.setAttribute('y', y.toFixed(2)); stem.setAttribute('height', len.toFixed(2));
+    st.g.querySelector('.tip').setAttribute('cy', y.toFixed(2)); st.g.querySelector('.glow').setAttribute('cy', y.toFixed(2));
+    if (Math.random() < 0.25) { const p = tipPos(st.g.querySelector('.tip')); if (p) FX.ash(p.x, p.y); }
+    if (k >= 1) {
+      st.lit = false; Smoke.removeEmitter('stick' + st.slot);
+      st.g.querySelector('.tip').remove(); st.g.querySelector('.glow').remove();
+      stem.setAttribute('fill', '#7d766e');
+      setTimeout(() => { st.g.remove(); S.sticks = S.sticks.filter(s => s !== st); updateAltarNote(); }, 20000);
+      say('有炷香燒完喇，想再上就撳「上香」。');
+    }
+  });
+  updateAltarNote();
+}
+async function bowThrice() {
+  if (S.bowing) return; S.bowing = true; Sound.ensure();
+  const btn = $('#btnBow'); btn.disabled = true;
+  if (!litCount()) say('未上香都可以拜，神明聽到嘅。上埋香就更好。');
+  const words = ['一拜', '二拜', '三拜'];
+  const bw = $('#bowword');
+  for (let i = 0; i < 3; i++) {
+    document.body.classList.remove('bowing'); void document.body.offsetWidth; document.body.classList.add('bowing');
+    bw.textContent = words[i]; bw.classList.remove('show'); void bw.offsetWidth; bw.classList.add('show');
+    Sound.play('bell');
+    await sleep(reduceMotion ? 300 : 900);
+  }
+  document.body.classList.remove('bowing');
+  S.bows += 3; setHalo();
+  const r = $('#halo').getBoundingClientRect(); if (r.width) FX.sparkle(r.left + r.width / 2, r.top + r.height / 2, 30);
+  say(DEITY_LINES[S.deity]);
+  if (litCount() >= 1) { markDone(1); toast('神明收到，可以去寫小人'); }
+  btn.disabled = false; S.bowing = false; updateAltarNote();
+}
+function switchDeity(d) {
+  if (d === S.deity) return;
+  S.deity = d; store.deity = d; saveStore(); renderDeity(); setHalo();
+  const r = $('#halo').getBoundingClientRect(); if (r.width) FX.sparkle(r.left + r.width / 2, r.top + r.height / 2, 14);
+  Sound.play('ding');
+  say({ guanyin: '請觀音娘娘，慈悲為懷。', tudi: '請土地公公，地頭最熟。', caishen: '請財神爺！打完小人順手求財。' }[d]);
+}
+
+/* ================= 驚蟄節氣 ================= */
+const HK_OFF = 8 * 3600e3;
+function sunLongitude(ms) {
+  const jd = ms / 86400000 + 2440587.5; const T = (jd - 2451545) / 36525; const d2r = Math.PI / 180;
+  const L0 = 280.46646 + 36000.76983 * T + 0.0003032 * T * T;
+  const M = (357.52911 + 35999.05029 * T - 0.0001537 * T * T) * d2r;
+  const C = (1.914602 - 0.004817 * T - 0.000014 * T * T) * Math.sin(M) + (0.019993 - 0.000101 * T) * Math.sin(2 * M) + 0.000289 * Math.sin(3 * M);
+  const om = (125.04 - 1934.136 * T) * d2r;
+  const lam = L0 + C - 0.00569 - 0.00478 * Math.sin(om);
+  return ((lam % 360) + 360) % 360;
+}
+function jingzheMs(year) {
+  let lo = Date.UTC(year, 1, 25), hi = Date.UTC(year, 2, 15);
+  for (let i = 0; i < 50; i++) { const mid = (lo + hi) / 2; if (sunLongitude(mid) < 345) lo = mid; else hi = mid; }
+  return (lo + hi) / 2;
+}
+function hkParts(ms) { const d = new Date(ms + HK_OFF); return { y: d.getUTCFullYear(), m: d.getUTCMonth() + 1, d: d.getUTCDate(), hh: d.getUTCHours(), mm: d.getUTCMinutes() }; }
+function hkDay(ms) { return Math.floor((ms + HK_OFF) / 86400000); }
+function computeTerm() {
+  const n = Date.now(); const today = hkDay(n);
+  let y = hkParts(n).y; let jz = jingzheMs(y);
+  if (today > hkDay(jz)) { y += 1; jz = jingzheMs(y); }
+  const jzDay = hkDay(jz);
+  return { y, jz, daysTo: jzDay - today, isJZ: today === jzDay, p: hkParts(jz) };
+}
+function ganzhiYear() {
+  const d = hkParts(Date.now()); let y = d.y;
+  if (d.m < 2 || (d.m === 2 && d.d < 4)) y -= 1;
+  return '甲乙丙丁戊己庚辛壬癸'[(y - 4) % 10] + '子丑寅卯辰巳午未申酉戌亥'[(y - 4) % 12];
+}
+function renderAlmanac() {
+  const t = S.term; const pad = v => String(v).padStart(2, '0');
+  const a1 = $('#alm1'), a2 = $('#alm2');
+  if (t.isJZ) a1.innerHTML = '<b class="hot">今日驚蟄</b>・打小人正日，春雷加倍';
+  else a1.innerHTML = `距離驚蟄仲有 <b>${t.daysTo}</b> 日`;
+  a2.textContent = `${t.p.y}年${t.p.m}月${t.p.d}日 約 ${pad(t.p.hh)}:${pad(t.p.mm)} 交節（香港時間）・打小人正日`;
+}
+
+/* ================= 兵器 ================= */
+const ICONS = {
+  slipper: '<path d="M32 4C44 4 50 14 48 26C46 36 50 46 46 54C42 62 22 62 18 54C14 46 18 36 16 26C14 14 20 4 32 4Z" fill="#3c7bd0" stroke="#1d3f70" stroke-width="2"/><path d="M22 22 L32 32 L42 22" stroke="#f3f0e8" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="32" cy="32" r="2.5" fill="#f3f0e8"/>',
+  granny: '<path d="M32 4C44 4 50 14 48 26C46 36 50 46 46 54C42 62 22 62 18 54C14 46 18 36 16 26C14 14 20 4 32 4Z" fill="#d24b3e" stroke="#8f2a20" stroke-width="2"/><path d="M22 22 L32 32 L42 22" stroke="#fffaf0" stroke-width="5" fill="none" stroke-linecap="round"/>',
+  shoe: '<path d="M6 44 C6 34 14 31 22 33 L34 34 C38 26 50 24 57 30 C61 34 61 40 60 46 L6 46Z" fill="#6b3f22" stroke="#2e1a0e" stroke-width="2"/><rect x="5" y="46" width="56" height="6" rx="2" fill="#2a1a10"/><rect x="48" y="52" width="10" height="5" fill="#2a1a10"/><path d="M36 34 L44 30 M39 37 L47 33" stroke="#c9a77d" stroke-width="1.6"/>',
+  heel: '<path d="M4 50 C10 46 20 46 28 40 C36 34 44 18 54 16 C60 15 61 22 58 28 L52 30 L52 57 L48 57 L48 33 C40 41 32 52 4 54Z" fill="#c8322a" stroke="#6e130d" stroke-width="2" stroke-linejoin="round"/>',
+  clog: '<rect x="6" y="30" width="52" height="10" rx="3" fill="#b07a45" stroke="#5c3a1c" stroke-width="2"/><rect x="12" y="40" width="8" height="12" fill="#8a5a2e" stroke="#5c3a1c" stroke-width="2"/><rect x="44" y="40" width="8" height="12" fill="#8a5a2e" stroke="#5c3a1c" stroke-width="2"/><path d="M16 30 Q28 12 40 30" stroke="#d24b3e" stroke-width="6" fill="none" stroke-linecap="round"/>',
+  duster: '<path d="M10 58 L34 30" stroke="#7a4a26" stroke-width="5" stroke-linecap="round"/><g fill="#a5562f" stroke="#5c2e14" stroke-width="1"><ellipse cx="40" cy="22" rx="8" ry="16" transform="rotate(40 40 22)"/><ellipse cx="46" cy="18" rx="7" ry="14" transform="rotate(55 46 18)"/><ellipse cx="34" cy="16" rx="6" ry="13" transform="rotate(25 34 16)"/><ellipse cx="48" cy="28" rx="6" ry="12" transform="rotate(70 48 28)"/></g><path d="M38 24 L52 10 M36 20 L44 6 M42 28 L58 20" stroke="#e0a070" stroke-width="1.4"/>',
+  pan: '<rect x="40" y="28" width="22" height="7" rx="3" fill="#5a3a24" transform="rotate(-20 40 31)"/><circle cx="26" cy="36" r="20" fill="#2b2826" stroke="#0f0d0c" stroke-width="2"/><circle cx="26" cy="36" r="14" fill="#3d3936"/><path d="M16 28 Q22 22 30 22" stroke="#7d7873" stroke-width="2.4" fill="none" stroke-linecap="round"/>',
+  thunder: '<path d="M30 30 L14 58" stroke="#7a4a26" stroke-width="6" stroke-linecap="round"/><g transform="rotate(30 35 18)"><rect x="18" y="8" width="34" height="20" rx="4" fill="#e3b456" stroke="#8c6220" stroke-width="2"/><path d="M38 11 L32 19 L38 19 L33 27" stroke="#fff6d0" stroke-width="2.4" fill="none" stroke-linejoin="round"/></g>'
+};
+function icon(id, size) {
+  return `<svg xmlns="${NS}" viewBox="0 0 64 64" width="${size}" height="${size}" aria-hidden="true">${ICONS[id] || ICONS.slipper}</svg>`;
+}
+const WEAPONS = {
+  slipper: { name: '膠拖鞋', note: '經典款', dmg: 3, radius: 70, sound: 'slap', pops: ['啪！', '啪啪！', '拍！'], imprint: 'slipper', power: 1 },
+  shoe: { name: '舊皮鞋', note: '夠重夠扁', dmg: 4, radius: 75, sound: 'thud', pops: ['嘭！', '咚！'], imprint: 'shoe', power: 1.2, shake: 1.3 },
+  heel: { name: '高踭鞋', note: '一踭穿窿', dmg: 5, radius: 45, sound: 'heel', pops: ['篤！', '釘！'], imprint: 'heel', power: 0.9, tear: 2.4 },
+  clog: { name: '木屐', note: '聲大夠響', dmg: 4, radius: 70, sound: 'clog', pops: ['咯！', '喀喀！'], imprint: 'clog', power: 1.1 },
+  duster: { name: '雞毛掃', note: '一掃一大片', dmg: 2, radius: 125, sound: 'whip', pops: ['咻—啪！', '刷！'], imprint: 'streak', power: 0.8 },
+  pan: { name: '平底鑊', note: '重炮・要儲力', dmg: 8, radius: 135, sound: 'pan', pops: ['噹——！', '鏘！'], imprint: 'pan', power: 1.8, shake: 2, cool: 450, tear: 1.6 },
+  thunder: { name: '雷公鎚', note: '春雷 0%', special: true },
+  granny: { name: '阿婆拖鞋', dmg: 3, radius: 70, sound: 'slap', pops: ['啪！', '啪啪！', '打你個小人頭！'], imprint: 'granny', power: 1 }
+};
+const WEAPON_ORDER = ['slipper', 'shoe', 'heel', 'clog', 'duster', 'pan', 'thunder'];
+const WEAPON_LINES = {
+  slipper: '膠拖鞋，阿婆至愛，啪啪聲夠晒爽。',
+  shoe: '舊皮鞋夠重，一嘢落去小人都扁。',
+  heel: '高踭鞋！一踭落去，穿窿㗎。',
+  clog: '木屐聲大，成條橋底都聽到。',
+  duster: '雞毛掃一掃就一大片，最啱群攻。',
+  pan: '平底鑊！重炮嚟㗎，打一下要等一陣。'
+};
+
+/* ================= 小人紙 ================= */
+const PW = 840, PH = 1060;
+const paperCv = $('#paper'); const pctx = paperCv.getContext('2d');
+const DISPLAY_F = '"Chiron Sung HK","Songti TC","Noto Serif TC",serif';
+const BRUSH_F = '"LXGW WenKai TC","Kaiti TC","STKaiti","DFKai-SB",serif';
+let edgePath = null, fiber = null, figCv = null, paperDirty = false;
+const GW = 14, GH = 18; const dgrid = new Float32Array(GW * GH); const torn = new Uint8Array(GW * GH);
+
+function makeFiber() {
+  const c = document.createElement('canvas'); c.width = PW; c.height = PH; const g = c.getContext('2d');
+  const grd = g.createLinearGradient(0, 0, PW, PH);
+  grd.addColorStop(0, '#f2d988'); grd.addColorStop(0.5, '#ecd07a'); grd.addColorStop(1, '#e2c068');
+  g.fillStyle = grd; g.fillRect(0, 0, PW, PH);
+  for (let i = 0; i < 2600; i++) {
+    g.strokeStyle = Math.random() < 0.5 ? 'rgba(160,120,40,.10)' : 'rgba(255,245,210,.16)';
+    g.lineWidth = rand(0.5, 1.4); const x = rand(0, PW), y = rand(0, PH), a = rand(0, 6.28), l = rand(4, 18);
+    g.beginPath(); g.moveTo(x, y); g.lineTo(x + Math.cos(a) * l, y + Math.sin(a) * l); g.stroke();
+  }
+  for (let i = 0; i < 60; i++) { g.fillStyle = 'rgba(150,100,30,.05)'; g.beginPath(); g.arc(rand(0, PW), rand(0, PH), rand(10, 60), 0, 7); g.fill(); }
+  fiber = c;
+  figCv = document.createElement('canvas'); figCv.width = PW; figCv.height = PH;
+}
+function makeEdge() {
+  const p = new Path2D(); const m = 14, st = 24;
+  p.moveTo(m, m);
+  for (let x = m; x <= PW - m; x += st) p.lineTo(x, m + rand(-4, 4));
+  for (let y = m; y <= PH - m; y += st) p.lineTo(PW - m + rand(-4, 4), y);
+  for (let x = PW - m; x >= m; x -= st) p.lineTo(x, PH - m + rand(-4, 4));
+  for (let y = PH - m; y >= m; y -= st) p.lineTo(m + rand(-4, 4), y);
+  p.closePath(); edgePath = p;
+}
+function drawFigureTo(g, f) {
+  const s = f.big ? 1 : 0.3; const INK = '#8a2216';
+  if (f.photo && PHOTO.fit === 'body') {
+    g.save(); g.translate(f.cx, f.cy); g.scale(s, s); g.lineJoin = 'round'; g.lineCap = 'round';
+    rrect(g, -150, -340, 300, 560, 18); g.lineWidth = 8; g.strokeStyle = INK; g.stroke();
+    g.lineWidth = 6; g.beginPath();
+    for (let i = -3; i <= 3; i++) { g.moveTo(i * 30, -344); g.lineTo(i * 34 + (i % 2 ? 8 : -8), -380); }
+    g.stroke(); g.restore(); return;
+  }
+  g.save(); g.translate(f.cx, f.cy); g.scale(s, s); g.lineJoin = 'round'; g.lineCap = 'round';
+  const limb = (pts, w) => {
+    g.beginPath(); g.moveTo(pts[0][0], pts[0][1]); for (let i = 1; i < pts.length; i++) g.lineTo(pts[i][0], pts[i][1]);
+    g.strokeStyle = INK; g.lineWidth = w + 12; g.stroke(); g.strokeStyle = '#ffffff'; g.lineWidth = w; g.stroke();
+  };
+  limb([[-64, -150], [-150, -40], [-196, 40]], 34);
+  limb([[64, -150], [150, -60], [200, -130]], 34);
+  limb([[-50, 160], [-80, 290], [-96, 390]], 40);
+  limb([[50, 160], [86, 290], [104, 390]], 40);
+  g.fillStyle = '#ffffff'; g.strokeStyle = INK; g.lineWidth = 6;
+  [[-196, 40], [200, -130]].forEach(([x, y]) => { g.beginPath(); g.arc(x, y, 24, 0, 7); g.fill(); g.stroke(); });
+  [[-120, 398], [128, 398]].forEach(([x, y]) => { g.beginPath(); g.ellipse(x, y, 44, 20, 0, 0, 7); g.fill(); g.stroke(); });
+  g.beginPath(); g.moveTo(-72, -178); g.quadraticCurveTo(0, -196, 72, -178); g.lineTo(112, 170); g.quadraticCurveTo(0, 190, -112, 170); g.closePath();
+  g.fillStyle = '#ffffff'; g.fill(); g.fillStyle = 'rgba(235,130,110,.16)'; g.fill(); g.lineWidth = 7; g.strokeStyle = INK; g.stroke();
+  g.lineWidth = 4; g.beginPath(); g.moveTo(-30, -176); g.lineTo(0, -130); g.lineTo(30, -176); g.stroke();
+  g.beginPath(); g.arc(0, -262, 80, 0, 7); g.fillStyle = '#ffffff'; g.fill(); g.fillStyle = 'rgba(235,130,110,.16)'; g.fill(); g.lineWidth = 7; g.stroke();
+  g.lineWidth = 6; g.beginPath();
+  for (let i = -3; i <= 3; i++) { g.moveTo(i * 18, -338); g.lineTo(i * 22 + (i % 2 ? 7 : -7), -368); }
+  g.stroke();
+  if (!(f.photo && PHOTO.fit === 'head')) {
+  g.lineWidth = 9; g.beginPath(); g.moveTo(-54, -298); g.lineTo(-14, -279); g.moveTo(54, -298); g.lineTo(14, -279); g.stroke();
+  g.lineWidth = 4;
+  [[-32, -258], [32, -258]].forEach(([x, y]) => {
+    g.fillStyle = '#ffffff'; g.beginPath(); g.ellipse(x, y, 17, 11, 0, 0, 7); g.fill(); g.stroke();
+    g.fillStyle = '#2a1a12'; g.beginPath(); g.arc(x - 8, y + 1, 6, 0, 7); g.fill();
+  });
+  g.lineWidth = 5; g.beginPath(); g.moveTo(0, -246); g.lineTo(-7, -233); g.lineTo(5, -231); g.stroke();
+  g.lineWidth = 6; g.beginPath(); g.moveTo(-30, -215); g.quadraticCurveTo(4, -207, 38, -234); g.stroke();
+  }
+  g.restore();
+}
+function drawName(f) {
+  const g = pctx; g.save(); g.globalCompositeOperation = 'source-over';
+  g.fillStyle = '#1b120d'; g.textAlign = 'center'; g.textBaseline = 'middle';
+  if (f.big) {
+    const chars = [...f.name].slice(0, 8); const n = chars.length; const size = Math.min(92, Math.floor(330 / n));
+    g.font = `700 ${size}px ${BRUSH_F}`;
+    const top = f.cy - 150 + size / 2;
+    if (f.photo) { g.strokeStyle = 'rgba(239,210,126,.92)'; g.lineWidth = 10; g.lineJoin = 'round'; }
+    chars.forEach((ch, i) => { const yy = top + i * size * 1.02; if (f.photo) g.strokeText(ch, f.cx, yy); g.fillText(ch, f.cx, yy); });
+  } else {
+    const t = [...f.name].slice(0, 6).join('');
+    g.font = `700 ${t.length > 4 ? 22 : 27}px ${BRUSH_F}`;
+    g.fillText(t, f.cx, f.cy + 146);
+  }
+  g.restore();
+}
+function stampBox(g, x, y, text) {
+  g.save(); g.translate(x, y); g.rotate(-0.07);
+  g.strokeStyle = '#b8261e'; g.fillStyle = '#b8261e'; g.lineWidth = 3;
+  g.strokeRect(-24, -40, 48, 80);
+  g.font = `900 30px ${DISPLAY_F}`; g.textAlign = 'center'; g.textBaseline = 'middle';
+  [...text].forEach((ch, i) => g.fillText(ch, 0, -19 + i * 38));
+  g.restore();
+}
+function drawPaper() {
+  const g = pctx;
+  g.save(); g.setTransform(1, 0, 0, 1, 0, 0); g.globalCompositeOperation = 'source-over'; g.clearRect(0, 0, PW, PH);
+  g.save(); g.clip(edgePath); g.drawImage(fiber, 0, 0); g.restore();
+  g.strokeStyle = '#b8261e'; g.lineWidth = 5; g.strokeRect(34, 34, PW - 68, PH - 68);
+  g.lineWidth = 1.6; g.strokeRect(48, 48, PW - 96, PH - 96);
+  g.fillStyle = '#b8261e'; g.font = `900 46px ${DISPLAY_F}`; g.textAlign = 'center'; g.textBaseline = 'alphabetic';
+  g.fillText(S.mode === 'single' ? '小 人 退 散' : '一 切 小 人 退 散', PW / 2, 112);
+  stampBox(g, 100, 112, ganzhiYear());
+  g.font = `700 26px ${BRUSH_F}`; g.fillStyle = 'rgba(150,35,22,.85)';
+  g.fillText('驚蟄打小人・貴人扶持', PW / 2, PH - 64);
+  S.figures.forEach(f => { if (f.photo) drawPhoto(g, f); });
+  const fg = figCv.getContext('2d'); fg.clearRect(0, 0, PW, PH);
+  S.figures.forEach(f => drawFigureTo(fg, f));
+  g.globalCompositeOperation = 'multiply'; g.drawImage(figCv, 0, 0); g.globalCompositeOperation = 'source-over';
+  g.restore();
+  S.figures.forEach(drawName);
+  paperDirty = false;
+}
+function makeFigures() {
+  if (S.mode === 'single') {
+    S.figures = [{ cx: 420, cy: 560, r: 300, hp: 100, max: 100, name: S.names[0] || '小人', big: true, dead: false }];
+  } else {
+    const names = S.names.slice(0, 12); while (names.length < 12) names.push('小人');
+    S.figures = names.map((n, i) => ({ cx: 150 + (i % 4) * 180, cy: 250 + Math.floor(i / 4) * 280, r: 70, hp: 30, max: 30, name: n, big: false, dead: false }));
+  }
+}
+function newPaper() {
+  makeFigures();
+  S.figures.forEach((f, i) => { const p = PHOTO.list[i]; f.photo = p && p.img && p.img.naturalWidth ? p.img : null; }); dgrid.fill(0); torn.fill(0); drawPaper();
+  $('#ko').hidden = true; updateHP();
+}
+
+/* ================= 鞋印、摺痕、穿窿 ================= */
+function soleShape(g) {
+  g.beginPath(); g.moveTo(0, -130);
+  g.bezierCurveTo(48, -130, 58, -60, 46, -10); g.bezierCurveTo(38, 30, 52, 80, 40, 115);
+  g.bezierCurveTo(30, 140, -30, 140, -40, 115); g.bezierCurveTo(-52, 80, -38, 30, -44, -10);
+  g.bezierCurveTo(-58, -60, -48, -130, 0, -130); g.closePath();
+}
+function rrect(g, x, y, w, h, r) { g.beginPath(); g.moveTo(x + r, y); g.arcTo(x + w, y, x + w, y + h, r); g.arcTo(x + w, y + h, x, y + h, r); g.arcTo(x, y + h, x, y, r); g.arcTo(x, y, x + w, y, r); g.closePath(); }
+function jagged(x, y, r, n = 13) { const pts = []; for (let i = 0; i < n; i++) { const a = i / n * Math.PI * 2 + rand(-0.15, 0.15); const rr = r * rand(0.55, 1.2); pts.push([x + Math.cos(a) * rr, y + Math.sin(a) * rr]); } return pts; }
+function poly(g, pts) { g.beginPath(); pts.forEach(([px, py], i) => (i ? g.lineTo(px, py) : g.moveTo(px, py))); g.closePath(); }
+function expandPts(pts, cx, cy, d) { return pts.map(([px, py]) => { const dx = px - cx, dy = py - cy, l = Math.hypot(dx, dy) || 1; return [px + dx / l * d, py + dy / l * d]; }); }
+function cracks(g, x, y, n, r0, r1) {
+  for (let i = 0; i < n; i++) {
+    const an = rand(0, 6.28); let rr = rand(r0 * 0.5, r0); g.beginPath(); g.moveTo(x + Math.cos(an) * rr, y + Math.sin(an) * rr);
+    const end = rand(r0 + 10, r1); while (rr < end) { rr += rand(12, 26); const aa = an + rand(-0.14, 0.14); g.lineTo(x + Math.cos(aa) * rr, y + Math.sin(aa) * rr); }
+    g.stroke();
+  }
+}
+function imprint(kind, x, y, a, s) {
+  const g = pctx; g.save(); g.translate(x, y); g.rotate(a); g.scale(s, s); g.globalCompositeOperation = 'multiply';
+  if (kind === 'slipper' || kind === 'granny') {
+    g.fillStyle = kind === 'granny' ? 'rgba(150,60,45,0.2)' : 'rgba(95,60,40,0.2)'; soleShape(g); g.fill();
+    g.fillStyle = 'rgba(80,50,30,0.16)';
+    for (let i = 0; i < 30; i++) { const px = rand(-38, 38), py = rand(-118, 118); if ((px / 42) ** 2 + (py / 125) ** 2 < 1) { g.beginPath(); g.arc(px, py, rand(2, 4.5), 0, 7); g.fill(); } }
+    g.strokeStyle = 'rgba(80,45,30,0.28)'; g.lineWidth = 6; g.lineCap = 'round'; g.beginPath(); g.moveTo(-26, -40); g.lineTo(0, -6); g.lineTo(26, -40); g.stroke();
+  } else if (kind === 'shoe') {
+    g.fillStyle = 'rgba(60,35,20,0.24)'; g.beginPath(); g.ellipse(0, -48, 50, 92, 0, 0, 7); g.fill(); rrect(g, -40, 62, 80, 70, 18); g.fill();
+    g.strokeStyle = 'rgba(50,30,15,0.2)'; g.lineWidth = 3;
+    for (let yy = -124; yy < 36; yy += 16) { const hw = 50 * Math.sqrt(Math.max(0, 1 - ((yy + 48) / 92) ** 2)); g.beginPath(); g.moveTo(-hw, yy); g.lineTo(hw, yy); g.stroke(); }
+  } else if (kind === 'heel') {
+    g.fillStyle = 'rgba(120,40,30,0.18)'; g.beginPath(); g.ellipse(0, -60, 34, 72, 0, 0, 7); g.fill();
+    g.globalCompositeOperation = 'destination-out'; g.beginPath(); g.arc(0, 108, 9, 0, 7); g.fill();
+    g.globalCompositeOperation = 'multiply'; g.strokeStyle = 'rgba(60,30,20,0.5)'; g.lineWidth = 3; g.beginPath(); g.arc(0, 108, 12, 0, 7); g.stroke();
+    g.lineWidth = 2; cracks(g, 0, 108, 6, 14, 60);
+  } else if (kind === 'clog') {
+    g.fillStyle = 'rgba(70,40,20,0.28)'; rrect(g, -58, -112, 116, 36, 8); g.fill(); rrect(g, -58, 72, 116, 36, 8); g.fill();
+    g.strokeStyle = 'rgba(60,35,15,0.18)'; g.lineWidth = 2;
+    for (let i = 0; i < 4; i++) { g.beginPath(); g.moveTo(-54, -104 + i * 8); g.lineTo(54, -102 + i * 8); g.stroke(); g.beginPath(); g.moveTo(-54, 80 + i * 8); g.lineTo(54, 82 + i * 8); g.stroke(); }
+  } else if (kind === 'streak') {
+    g.strokeStyle = 'rgba(90,55,30,0.16)'; g.lineCap = 'round';
+    for (let i = 0; i < 11; i++) { g.lineWidth = rand(2, 5); g.beginPath(); g.moveTo(-170, -54 + i * 11); g.quadraticCurveTo(0, -84 + i * 13 + rand(-10, 10), 170, -40 + i * 9); g.stroke(); }
+  } else if (kind === 'pan') {
+    const rg = g.createRadialGradient(0, 0, 20, 0, 0, 132);
+    rg.addColorStop(0, 'rgba(80,50,30,0.05)'); rg.addColorStop(0.8, 'rgba(70,45,25,0.18)'); rg.addColorStop(1, 'rgba(40,25,15,0.42)');
+    g.fillStyle = rg; g.beginPath(); g.arc(0, 0, 132, 0, 7); g.fill();
+    g.strokeStyle = 'rgba(40,25,15,0.35)'; g.lineWidth = 8; g.beginPath(); g.arc(0, 0, 128, 0, 7); g.stroke();
+    g.lineWidth = 2.5; cracks(g, 0, 0, 9, 50, 170);
+    g.globalCompositeOperation = 'source-atop'; g.strokeStyle = 'rgba(255,250,230,0.28)'; g.lineWidth = 4; g.beginPath(); g.arc(-10, -10, 100, 3.6, 5.2); g.stroke();
+  } else if (kind === 'scorch') {
+    const rg = g.createRadialGradient(0, 0, 4, 0, 0, 112);
+    rg.addColorStop(0, 'rgba(30,12,4,0.85)'); rg.addColorStop(0.4, 'rgba(60,25,8,0.45)'); rg.addColorStop(1, 'rgba(90,50,20,0)');
+    g.fillStyle = rg; g.beginPath(); g.arc(0, 0, 112, 0, 7); g.fill();
+    g.strokeStyle = 'rgba(20,8,2,0.6)'; g.lineWidth = 3;
+    for (let i = 0; i < 7; i++) { let px = 0, py = 0; const an = rand(0, 6.28); g.beginPath(); g.moveTo(0, 0); for (let k = 0; k < 6; k++) { px += Math.cos(an + rand(-0.6, 0.6)) * rand(12, 22); py += Math.sin(an + rand(-0.6, 0.6)) * rand(12, 22); g.lineTo(px, py); } g.stroke(); }
+    if (Math.random() < 0.75) {
+      const pts = jagged(0, 0, rand(16, 28));
+      g.globalCompositeOperation = 'destination-out'; poly(g, pts); g.fill();
+      g.globalCompositeOperation = 'source-over'; g.strokeStyle = 'rgba(255,130,50,0.75)'; g.lineWidth = 4; poly(g, expandPts(pts, 0, 0, 3)); g.stroke();
+    }
+  }
+  g.restore();
+}
+function creases(x, y, s) {
+  const g = pctx; g.save(); g.globalCompositeOperation = 'source-atop';
+  const n = 3 + Math.floor(Math.random() * 3);
+  for (let i = 0; i < n; i++) {
+    const a = rand(0, 6.28), l = rand(40, 140) * s; const x2 = x + Math.cos(a) * l, y2 = y + Math.sin(a) * l;
+    const mx = (x + x2) / 2 + rand(-12, 12), my = (y + y2) / 2 + rand(-12, 12);
+    g.strokeStyle = 'rgba(255,250,232,0.34)'; g.lineWidth = 1.6; g.beginPath(); g.moveTo(x, y); g.quadraticCurveTo(mx, my, x2, y2); g.stroke();
+    g.strokeStyle = 'rgba(70,45,20,0.2)'; g.lineWidth = 1.2; g.beginPath(); g.moveTo(x + 1.5, y + 1.5); g.quadraticCurveTo(mx + 1.5, my + 1.5, x2 + 1.5, y2 + 1.5); g.stroke();
+  }
+  g.restore();
+}
+function tearAt(x, y, r) {
+  const g = pctx; const pts = jagged(x, y, r);
+  g.save(); g.globalCompositeOperation = 'destination-out'; poly(g, pts); g.fill();
+  g.globalCompositeOperation = 'source-atop';
+  g.strokeStyle = 'rgba(255,247,222,0.85)'; g.lineWidth = 5; poly(g, expandPts(pts, x, y, 2.5)); g.stroke();
+  g.strokeStyle = 'rgba(120,80,30,0.25)'; g.lineWidth = 2; poly(g, expandPts(pts, x, y, 6)); g.stroke();
+  g.restore();
+}
+function damageGrid(x, y, amt) {
+  const i = Math.floor(x / PW * GW), j = Math.floor(y / PH * GH);
+  if (i < 0 || j < 0 || i >= GW || j >= GH) return;
+  const k = j * GW + i; dgrid[k] += amt;
+  const th = [6, 13, 22][torn[k]];
+  if (th && dgrid[k] > th) { torn[k]++; tearAt(x + rand(-12, 12), y + rand(-12, 12), 10 + torn[k] * 9); }
+}
+function stampSeal(x, y, size, text) {
+  const g = pctx; g.save(); g.translate(x, y); g.rotate(rand(-0.35, -0.1)); g.globalCompositeOperation = 'source-atop';
+  g.strokeStyle = 'rgba(200,40,25,.86)'; g.fillStyle = 'rgba(200,40,25,.86)'; g.lineWidth = size * 0.05;
+  g.strokeRect(-size / 2, -size * 0.27, size, size * 0.54);
+  g.font = `900 ${Math.round(size * 0.34)}px ${DISPLAY_F}`; g.textAlign = 'center'; g.textBaseline = 'middle';
+  g.fillText(text, 0, size * 0.02); g.restore();
+}
+
+/* ================= 打擊 ================= */
+function canvasPoint(cx, cy) { const r = paperCv.getBoundingClientRect(); return { x: (cx - r.left) / r.width * PW, y: (cy - r.top) / r.height * PH }; }
+function toClient(x, y) { const r = paperCv.getBoundingClientRect(); return { x: r.left + x / PW * r.width, y: r.top + y / PH * r.height }; }
+function updateHP() {
+  const tot = S.figures.reduce((a, f) => a + f.max, 0), cur = S.figures.reduce((a, f) => a + f.hp, 0);
+  const pct = tot ? cur / tot * 100 : 0; $('#hpFill').style.width = pct.toFixed(1) + '%';
+  if (S.mode === 'single') { $('#hpLabel').textContent = `「${S.figures[0].name}」元氣`; $('#hpNum').textContent = Math.ceil(pct) + '%'; }
+  else { $('#hpLabel').textContent = '已擊退小人'; $('#hpNum').textContent = `${S.figures.filter(f => f.dead).length} / ${S.figures.length}`; }
+}
+function updateThunder() {
+  const b = $('.weapon.thunder'); if (!b) return;
+  b.style.setProperty('--charge', S.thunder.toFixed(0) + '%'); b.classList.toggle('ready', S.thunder >= 100);
+  const ws = b.querySelector('.ws'); if (ws) ws.textContent = S.thunder >= 100 ? '儲夠！撳落去' : `春雷 ${Math.floor(S.thunder)}%`;
+}
+let comboHide = 0;
+const COMBO_LINES = { 10: '十連！好嘢！', 25: '二十五連，手勢唔錯喎！', 50: '五十連！小人都驚到震！', 100: '一百連！你係咪練過？', 200: '二百連……阿婆都要拜你為師！', 300: '三百連！今晚你就係鵝頸橋之王！' };
+function bumpCombo() {
+  const t = now(); S.combo = (t - S.lastHit < 700) ? S.combo + 1 : 1; S.lastHit = t;
+  if (S.combo > S.maxCombo) S.maxCombo = S.combo;
+  const el = $('#combo');
+  if (S.combo >= 3) { el.hidden = false; el.textContent = `連擊 ×${S.combo}`; el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop'); }
+  clearTimeout(comboHide); comboHide = setTimeout(() => { el.hidden = true; }, 900);
+  if (COMBO_LINES[S.combo]) {
+    Sound.play('combo', Math.round(Math.log2(S.combo) * 2)); say(COMBO_LINES[S.combo]);
+    const r = el.getBoundingClientRect(); if (r.width) FX.sparks(r.left + r.width / 2, r.top + r.height / 2, 26, true);
+  }
+}
+function defeat(f) {
+  f.dead = true; S.ko++;
+  const g = pctx; g.save(); g.globalCompositeOperation = 'source-atop';
+  g.strokeStyle = 'rgba(160,25,15,0.72)'; g.lineWidth = f.big ? 22 : 10; g.lineCap = 'round';
+  const d = f.big ? 200 : 70; g.beginPath();
+  g.moveTo(f.cx - d, f.cy - d * 1.2); g.lineTo(f.cx + d, f.cy + d * 1.2); g.moveTo(f.cx + d, f.cy - d * 1.2); g.lineTo(f.cx - d, f.cy + d * 1.2); g.stroke(); g.restore();
+  stampSeal(f.cx, f.cy - (f.big ? 60 : 10), f.big ? 380 : 150, '退散');
+  const c = toClient(f.cx, f.cy); FX.sparks(c.x, c.y, 30, true);
+  popWord(c.x, c.y - 30, `${f.name}退散！`, { size: f.big ? 46 : 28, color: '#ffe39a' });
+  Sound.play('gong'); updateTally();
+  if (!S.figures.some(x => !x.dead)) allDefeated();
+  else say(pick([`「${f.name}」冇晒元氣，下一個！`, '又一個退散！手勢好！', '打得好，呢個搞掂！']));
+}
+function allDefeated() {
+  const ko = $('#ko'); ko.querySelector('span').textContent = S.mode === 'single' ? '退散' : '全部退散'; ko.hidden = false;
+  markDone(3); Sound.play('fanfare'); FX.confetti(70);
+  say(S.mode === 'single' ? '打得好！小人冇晒元氣，可以去祭白虎喇。' : '全部退散！收工，去祭白虎。');
+  toast('小人退散！仲想打可以繼續打，或者去祭白虎');
+  setTimeout(() => { if (S.auto) setAuto(false, true); }, 500);
+}
+const lastUse = {};
+function doHit(wid, x, y, o = {}) {
+  const W = WEAPONS[wid]; if (!W || W.special) return false;
+  const t = now(); if (W.cool && lastUse[wid] && t - lastUse[wid] < W.cool) return false; lastUse[wid] = t;
+  bumpCombo();
+  const jz = S.term && S.term.isJZ;
+  const dmg = W.dmg * (1 + Math.min(S.combo, 50) * 0.02) * (jz ? 1.25 : 1);
+  const targets = S.mode === 'single' ? S.figures.filter(f => !f.dead) : S.figures.filter(f => !f.dead && Math.hypot(f.cx - x, f.cy - y) < W.radius + f.r);
+  const sc = (S.mode === 'single' ? 1 : 0.6) * rand(0.85, 1.1);
+  imprint(W.imprint, x, y, rand(-0.6, 0.6), sc); creases(x, y, sc); damageGrid(x, y, W.tear || 1); paperDirty = true;
+  targets.forEach(f => { f.hp = Math.max(0, f.hp - dmg); if (f.hp <= 0 && !f.dead) defeat(f); });
+  const c = toClient(x, y);
+  swingAt(c.x, c.y, wid); popWord(c.x + rand(-10, 10), c.y - 24, pick(W.pops)); FX.burstHit(c.x, c.y, W.power || 1);
+  if (wid === 'pan') FX.sparks(c.x, c.y, 16);
+  thudPaper(W.shake || 1); if ((W.shake || 1) >= 2) quake();
+  Sound.play(W.sound);
+  S.hits++; store.allHits++; if (o.byGranny) S.granHits++;
+  S.thunder = Math.min(100, S.thunder + (o.byGranny ? 1.2 : 2.6) * (jz ? 2 : 1)); updateThunder();
+  if (S.thunder >= 100 && !S.thunderHinted) { S.thunderHinted = true; say('春雷儲夠喇！撳「雷公鎚」，劈佢一嘢！'); }
+  updateHP(); updateTally(); if (S.hits % 10 === 0) saveStore();
+  if (!o.byGranny && !targets.length && S.mode === 'aoe' && Math.random() < 0.3) say('打歪咗喎，對準啲小人先！');
+  return true;
+}
+const THUNDER_LINES = ['春雷一響，小人無所遁形！', '驚蟄雷公幫你劈，劈到佢魂飛魄散！', '轟一聲，邊個小人仲夠膽企喺度？'];
+function thunderStrike() {
+  if (S.thunder < 100) { toast(`春雷儲緊力：${Math.floor(S.thunder)}%，打多幾下就有`); return; }
+  if (S.step !== 3) go(3);
+  S.thunder = 0; S.thunderHinted = false; updateThunder();
+  const r = paperCv.getBoundingClientRect();
+  const tx = r.left + r.width * rand(0.35, 0.65), ty = r.top + r.height * 0.45;
+  lightning(tx, ty); Sound.play('thunder');
+  setTimeout(() => {
+    const pts = S.mode === 'single' ? [[420, 560], [rand(250, 590), rand(300, 900)], [rand(250, 590), rand(300, 900)]] : S.figures.map(f => [f.cx, f.cy]);
+    pts.forEach(([x, y]) => imprint('scorch', x, y, rand(0, 6.28), S.mode === 'single' ? 1.1 : 0.6));
+    S.figures.forEach(f => { if (!f.dead) { f.hp = Math.max(0, f.hp - (S.mode === 'single' ? 30 : 22)); if (f.hp <= 0) defeat(f); } });
+    FX.sparks(tx, ty, 60, true); FX.burstHit(tx, ty, 2.2); popWord(tx, ty - 40, '轟隆！', { size: 58 });
+    S.hits++; store.allHits++; paperDirty = true; updateHP(); updateTally(); saveStore();
+    if (S.figures.some(f => !f.dead)) say(pick(THUNDER_LINES));
+  }, 90);
+}
+
+/* ================= 兵器架同出手 ================= */
+function setCursor() {
+  const bw = $('#brickwrap');
+  try { bw.style.cursor = `url("data:image/svg+xml,${encodeURIComponent(icon(S.weapon, 44))}") 22 22, crosshair`; }
+  catch (e) { bw.style.cursor = 'crosshair'; }
+}
+function buildRack() {
+  const rack = $('#rack'); rack.innerHTML = '';
+  WEAPON_ORDER.forEach((id, i) => {
+    const w = WEAPONS[id]; const b = document.createElement('button');
+    b.className = 'weapon' + (id === 'thunder' ? ' thunder' : ''); b.dataset.w = id; b.type = 'button';
+    b.setAttribute('aria-pressed', id === S.weapon ? 'true' : 'false');
+    b.title = `${w.name}（快捷鍵 ${i + 1}）`;
+    b.innerHTML = icon(id, 40) + `<span class="wn">${w.name}</span><span class="ws">${w.note}</span>`;
+    b.addEventListener('click', () => selectWeapon(id));
+    rack.appendChild(b);
+  });
+  updateThunder(); setCursor();
+}
+function selectWeapon(id) {
+  Sound.ensure();
+  if (id === 'thunder') { thunderStrike(); return; }
+  S.weapon = id;
+  $$('.weapon').forEach(b => b.setAttribute('aria-pressed', b.dataset.w === id ? 'true' : 'false'));
+  setCursor(); Sound.play('clack'); say(WEAPON_LINES[id]);
+}
+function hitAtClient(p, repeat) {
+  const c = canvasPoint(p.x, p.y); const j = repeat ? 22 : 0;
+  doHit(S.weapon, c.x + rand(-j, j), c.y + rand(-j, j));
+}
+function hitRandomTarget(wid, o) {
+  const alive = S.figures.filter(f => !f.dead); const f = alive.length ? pick(alive) : pick(S.figures);
+  const spread = f.big ? 150 : 34;
+  doHit(wid, f.cx + rand(-spread, spread) * 0.8, f.cy + rand(-spread, spread * 1.4), o);
+}
+function bindPaperInput() {
+  let holdPos = null, holdT = 0, holdI = 0;
+  const stop = () => { holdPos = null; clearTimeout(holdT); clearInterval(holdI); };
+  paperCv.addEventListener('pointerdown', e => {
+    e.preventDefault(); Sound.ensure();
+    try { paperCv.setPointerCapture(e.pointerId); } catch (err) {}
+    holdPos = { x: e.clientX, y: e.clientY }; hitAtClient(holdPos, false);
+    clearTimeout(holdT); clearInterval(holdI);
+    holdT = setTimeout(() => { holdI = setInterval(() => { if (holdPos) hitAtClient(holdPos, true); }, 135); }, 320);
+  });
+  paperCv.addEventListener('pointermove', e => { if (holdPos) holdPos = { x: e.clientX, y: e.clientY }; });
+  ['pointerup', 'pointercancel', 'lostpointercapture'].forEach(ev => paperCv.addEventListener(ev, stop));
+  paperCv.addEventListener('contextmenu', e => e.preventDefault());
+  paperCv.addEventListener('keydown', e => {
+    if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); hitRandomTarget(S.weapon); }
+    const n = parseInt(e.key, 10); if (n >= 1 && n <= WEAPON_ORDER.length) selectWeapon(WEAPON_ORDER[n - 1]);
+  });
+}
+
+/* ================= 阿婆 ================= */
+const gsvg = $('#grannySvg');
+let talkTimer = 0;
+function say(text, ms = 1900) {
+  $('#bubble').textContent = text; $('#ticker').textContent = text;
+  gsvg.classList.add('talk'); clearTimeout(talkTimer);
+  talkTimer = setTimeout(() => gsvg.classList.remove('talk'), ms);
+  S.lastSay = Date.now();
+}
+function grannyStrike(dur) {
+  gsvg.style.setProperty('--gs', dur.toFixed(2) + 's');
+  gsvg.classList.remove('strike'); void gsvg.getBoundingClientRect(); gsvg.classList.add('strike');
+}
+const CHANTS = [
+  '打你個小人頭，打到你成世冇出頭',
+  '打你個小人口，打到你講是非冇人收',
+  '打你個小人手，打到你搶嘢都搶唔走',
+  '打你個小人眼，打到你睇人低都睇唔返',
+  '打你個小人心，打到你壞心腸冇得斟',
+  '打你個小人肚，打到你成肚壞水都要吐',
+  '打你個小人腳，打到你諗計害人都要食藥'
+];
+const SPECIAL_CHANTS = {
+  '針對我嘅概率': ['打你個衰概率，打到你以後唔敢再針對我', '概率呀概率，今晚輪到我針對你', '打到你次次都派好牌，保底都提早到'],
+  '頭痛鬼': ['打走頭痛鬼，今晚瞓得好過嬰兒', '頭痛鬼快啲走，唔好再纏住佢'],
+  '釘板凳': ['打你張釘板凳，打到你啲刺全部甩晒', '面頭軟墊底下藏刺？打到你冇得藏'],
+  '二手煙': ['打走二手煙，打到你吹去天邊', '煙霧小人退散，鼻哥從此清清爽爽'],
+  '背後插刀嘅': ['打你隻插刀手，打到你把刀都揸唔穩'],
+  '搶功勞嘅': ['搶人功勞？打到你連自己份都冇埋'],
+  '講是非嘅': ['講是非？打到你把口都郁唔到'],
+  '睇唔起人嘅': ['睇唔起人？打到你以後抬頭都唔敢']
+};
+const nameChants = n => [`打你個${n}，打到你以後見親佢都要兜路行`, `${n}呀${n}，你避得一時，避唔過今晚`, `打你個${n}，打到你冇晒威風`];
+let chantI = 0;
+function nextChant(f) {
+  const n = f ? f.name : '小人';
+  if (SPECIAL_CHANTS[n] && Math.random() < 0.7) return pick(SPECIAL_CHANTS[n]);
+  if (n !== '小人' && Math.random() < 0.4) return pick(nameChants(n));
+  return CHANTS[chantI++ % CHANTS.length];
+}
+const SPEEDS = { slow: 1100, mid: 600, fast: 320, mad: 140 };
+let autoTimer = 0;
+function setAuto(on, quiet) {
+  S.auto = on; clearTimeout(autoTimer);
+  const b1 = $('#btnAuto'), b2 = $('#btnAuto2');
+  b1.setAttribute('aria-pressed', on ? 'true' : 'false'); b2.setAttribute('aria-pressed', on ? 'true' : 'false');
+  b1.textContent = on ? '阿婆收手' : '阿婆代打'; b2.textContent = on ? '叫阿婆收手' : '叫阿婆代打';
+  if (on) {
+    Sound.ensure();
+    if (!S.figures.some(f => !f.dead)) newPaper();
+    if (S.step !== 3) go(3);
+    say(pick(['得，等阿婆幫你打！你飲啖水抖下先。', '睇住，阿婆出手！', '交俾阿婆，四十年功力。']));
+    autoTimer = setTimeout(autoTick, 500);
+  } else if (!quiet) say('好，阿婆抖一抖。仲想打就自己嚟，或者再叫我。');
+}
+function autoTick() {
+  if (!S.auto) return;
+  if (!S.figures.some(f => !f.dead)) { setAuto(false, true); return; }
+  if (S.step === 3 && !document.hidden) {
+    const dur = Math.min(0.5, SPEEDS[S.speed] / 1000 * 0.9);
+    grannyStrike(dur);
+    setTimeout(() => { if (S.auto) hitRandomTarget('granny', { byGranny: true }); }, dur * 620);
+    S.chantN++;
+    if (S.chantN % (S.speed === 'mad' ? 4 : 2) === 0) {
+      const alive = S.figures.filter(f => !f.dead); say(nextChant(pick(alive)), 1300);
+    }
+    if (S.speed === 'mad' && S.chantN % 12 === 0) { quake(); if (Math.random() < 0.5) say('癲咗喇！阿婆今晚同你一齊癲！'); }
+  }
+  autoTimer = setTimeout(autoTick, SPEEDS[S.speed] * rand(0.88, 1.12));
+}
+function setSpeed(sp) {
+  S.speed = sp;
+  $$('#speedSeg button').forEach(b => b.setAttribute('aria-pressed', b.dataset.speed === sp ? 'true' : 'false'));
+  say({ slow: '慢慢打，打得入心。', mid: '正常速度，穩陣。', fast: '加速！小人頂唔順喇。', mad: '癲模式！阿婆拚老命！' }[sp]);
+}
+const POKE_LINES = [
+  '我喺鵝頸橋打咗四十年小人，乜嘢小人都見過。',
+  '打完記得飲啖水，唔好打到自己頭痛。',
+  '有咩唔開心就打出嚟，唔好收埋喺心入面。',
+  '我哋呢行唔講大道理，淨係講手勢。',
+  '小人呢家嘢，你越驚佢，佢越囂張。',
+  '唔好篤我喇，篤多兩下我會打乞嗤㗎。'
+];
+let pokes = 0;
+function pokeGranny() {
+  Sound.ensure(); pokes++;
+  if (pokes % 6 === 0) {
+    say('乞……乞嗤！哎呀，啲香火真係好旺。', 1500); Sound.play('sneeze');
+    setTimeout(() => { Smoke.blowAway(); toast('阿婆一個乞嗤，吹散晒啲煙'); }, 380);
+    return;
+  }
+  say(POKE_LINES[(pokes - 1) % POKE_LINES.length]);
+}
+function grannyAmbient() {
+  if (Date.now() - S.lastSay < 9000 || S.auto) return;
+  const lit = litCount();
+  if (lit >= 3 && !S.nose && Math.random() < 0.5) { say('咳咳，香火好旺。鼻敏感就開「鼻敏感模式」啦。'); return; }
+  if (lit >= 3 && S.nose && Math.random() < 0.4) { say('知你鼻敏感，阿婆幫你撥走啲煙先。'); Smoke.blowAway(); return; }
+  if (S.step === 3 && S.hits > 0 && S.figures.some(f => !f.dead) && Math.random() < 0.6) { say(pick(['打到手軟就叫阿婆代打。', '撳住唔放，可以一路連打。', '春雷儲夠就用雷公鎚，好過癮。'])); return; }
+  if (S.step === 1 && !lit) say('香爐仲係空嘅，先上香啦。');
+}
+
+/* ================= 貼相（只喺呢部機處理） ================= */
+const PHOTO = { list: [], fit: 'head' };
+function coverDraw(g, img, x, y, w, h, biasY) {
+  const iw = img.naturalWidth, ih = img.naturalHeight; if (!iw || !ih) return;
+  const s = Math.max(w / iw, h / ih); const sw = w / s, sh = h / s;
+  const sx = (iw - sw) / 2, sy = Math.max(0, Math.min(ih - sh, (ih - sh) * biasY));
+  g.drawImage(img, sx, sy, sw, sh, x, y, w, h);
+}
+function drawPhoto(g, f) {
+  const s = f.big ? 1 : 0.3;
+  g.save(); g.translate(f.cx, f.cy); g.scale(s, s);
+  if (PHOTO.fit === 'head') { g.beginPath(); g.arc(0, -262, 80, 0, Math.PI * 2); g.clip(); g.globalCompositeOperation = 'multiply'; coverDraw(g, f.photo, -80, -342, 160, 160, 0.3); }
+  else { rrect(g, -150, -340, 300, 560, 18); g.clip(); g.globalCompositeOperation = 'multiply'; coverDraw(g, f.photo, -150, -340, 300, 560, 0.35); }
+  g.restore();
+}
+const DROP_HINT = '撳呢度揀相，亦可以將相拖入嚟，或者用 Ctrl+V 貼上。單打用第一張；群攻就按次序貼落每個小人度。';
+function renderThumbs() {
+  const box = $('#thumbs'); box.innerHTML = '';
+  PHOTO.list.forEach((p, i) => { const im = document.createElement('img'); im.src = p.url; im.alt = `第 ${i + 1} 張相`; box.appendChild(im); });
+  $('#btnClearPhotos').hidden = !PHOTO.list.length;
+  $('#dropText').textContent = PHOTO.list.length ? `揀咗 ${PHOTO.list.length} 張相，再撳可以加多啲（最多十二張）。` : DROP_HINT;
+}
+function addPhotoFiles(files) {
+  const imgs = Array.from(files || []).filter(f => f && f.type && f.type.indexOf('image/') === 0);
+  if (!imgs.length) { toast('要揀相片檔案先得'); return 0; }
+  const room = 12 - PHOTO.list.length;
+  if (room <= 0) { toast('最多十二張相'); return 0; }
+  const take = imgs.slice(0, room);
+  take.forEach(file => {
+    const url = URL.createObjectURL(file); const img = new Image(); const item = { img, url };
+    img.onerror = () => { URL.revokeObjectURL(url); PHOTO.list = PHOTO.list.filter(p => p !== item); renderThumbs(); toast('有張相讀唔到，試下第二張'); };
+    img.src = url; PHOTO.list.push(item);
+  });
+  renderThumbs(); Sound.play('tick');
+  say(PHOTO.list.length > 1 ? `收到 ${PHOTO.list.length} 張相。群攻嗰陣會逐張貼落去。` : '收到相。放上磚頭就會貼落小人紙度。');
+  return take.length;
+}
+function decodePhotos() { return Promise.all(PHOTO.list.map(p => (p.img.decode ? p.img.decode().catch(() => {}) : Promise.resolve()))); }
+function clearPhotos() { PHOTO.list.forEach(p => URL.revokeObjectURL(p.url)); PHOTO.list = []; renderThumbs(); say('相片清走晒，淨返名字。'); }
+function setFit(fit) {
+  PHOTO.fit = fit;
+  $('#fitHead').setAttribute('aria-pressed', fit === 'head' ? 'true' : 'false');
+  $('#fitBody').setAttribute('aria-pressed', fit === 'body' ? 'true' : 'false');
+  Sound.play('tick');
+  if (!paperDirty && S.figures.some(f => f.photo)) drawPaper();
+}
+function bindPhotos() {
+  const input = $('#photoInput'), drop = $('#drop'), bw = $('#brickwrap');
+  input.addEventListener('change', () => { addPhotoFiles(input.files); input.value = ''; });
+  ['dragenter', 'dragover'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('over'); }));
+  ['dragleave', 'drop'].forEach(ev => drop.addEventListener(ev, () => drop.classList.remove('over')));
+  drop.addEventListener('drop', e => { e.preventDefault(); addPhotoFiles(e.dataTransfer && e.dataTransfer.files); });
+  bw.addEventListener('dragover', e => e.preventDefault());
+  bw.addEventListener('drop', async e => {
+    e.preventDefault();
+    if (addPhotoFiles(e.dataTransfer && e.dataTransfer.files)) { await decodePhotos(); newPaper(); S.combo = 0; say('新相貼好喇，打！'); }
+  });
+  document.addEventListener('paste', async e => {
+    const files = Array.from((e.clipboardData && e.clipboardData.files) || []).filter(f => f.type.indexOf('image/') === 0);
+    if (!files.length || (S.step !== 2 && S.step !== 3)) return;
+    e.preventDefault();
+    if (addPhotoFiles(files) && S.step === 3) { await decodePhotos(); newPaper(); S.combo = 0; }
+  });
+  $('#btnClearPhotos').addEventListener('click', clearPhotos);
+  $('#fitHead').addEventListener('click', () => setFit('head'));
+  $('#fitBody').addEventListener('click', () => setFit('body'));
+  renderThumbs();
+}
+
+/* ================= 流程 ================= */
+const STEP_LINES = {
+  1: '後生，先揀位神明，上三炷香，拜三拜，等神明知道你嚟咗。',
+  2: '名寫清楚啲；唔知係邊個就寫「小人」，群攻一次過打晒。',
+  3: '揀隻鞋，對準佢，大力啲！撳住唔放就可以連打。',
+  4: '白虎主口舌是非。餵飽佢，佢就唔會咬你。',
+  5: '全部化埋佢，乾手淨腳，唔好留尾巴。',
+  6: '擲個筊問下神明。今晚有保底，唔使驚。'
+};
+function go(n, silent) {
+  n = clamp(n, 1, 6); const changed = n !== S.step; S.step = n;
+  $$('.panel').forEach(p => { p.hidden = Number(p.dataset.panel) !== n; });
+  $$('.step').forEach(b => {
+    const k = Number(b.dataset.step);
+    if (k === n) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current');
+    b.classList.toggle('done', S.done.has(k));
+  });
+  if (n !== 3 && S.auto) setAuto(false, true);
+  if (n === 3) { updateHP(); updateThunder(); }
+  if (n === 5) prepareBurn();
+  if (!silent) {
+    say(STEP_LINES[n]);
+    if (changed && innerWidth <= 760) $('#stage').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+  }
+}
+function markDone(n) { S.done.add(n); const b = $(`.step[data-step="${n}"]`); if (b) b.classList.add('done'); }
+
+/* ================= 寫小人 ================= */
+let pendingMode = 'single';
+const CHIP_LIST = ['背後插刀嘅', '搶功勞嘅', '講是非嘅', '睇唔起人嘅', '針對我嘅概率', '頭痛鬼', '釘板凳', '二手煙'];
+function currentNames() {
+  return pendingMode === 'single' ? [$('#nameOne').value.trim()].filter(Boolean) : $('#nameMany').value.split('\n').map(s => s.trim()).filter(Boolean);
+}
+function syncChips() { const names = currentNames(); $$('#chips .chip').forEach(c => c.setAttribute('aria-pressed', names.includes(c.dataset.n) ? 'true' : 'false')); }
+function setMode(m) {
+  pendingMode = m;
+  $('#modeSingle').setAttribute('aria-pressed', m === 'single' ? 'true' : 'false');
+  $('#modeAoe').setAttribute('aria-pressed', m === 'aoe' ? 'true' : 'false');
+  $('#singleField').hidden = m !== 'single'; $('#aoeField').hidden = m !== 'aoe';
+  syncChips(); Sound.play('tick');
+  say(m === 'single' ? '單打：一個名，專心打佢一個。' : '群攻：最多十二個，一鞋落去打幾個！');
+}
+function buildChips() {
+  const box = $('#chips');
+  CHIP_LIST.forEach(n => {
+    const c = document.createElement('button'); c.type = 'button'; c.className = 'chip'; c.dataset.n = n; c.textContent = n;
+    c.setAttribute('aria-pressed', 'false'); c.addEventListener('click', () => toggleChip(n)); box.appendChild(c);
+  });
+  $('#nameOne').addEventListener('input', syncChips); $('#nameMany').addEventListener('input', syncChips);
+}
+function toggleChip(n) {
+  if (pendingMode === 'single') { const inp = $('#nameOne'); inp.value = inp.value.trim() === n ? '' : n; }
+  else {
+    const ta = $('#nameMany'); let lines = ta.value.split('\n').map(s => s.trim()).filter(Boolean);
+    if (lines.includes(n)) lines = lines.filter(x => x !== n); else if (lines.length < 12) lines.push(n); else toast('最多十二個小人');
+    ta.value = lines.join('\n');
+  }
+  syncChips(); Sound.play('tick');
+}
+async function placePaper() {
+  Sound.ensure();
+  const names = currentNames().map(s => [...s].slice(0, 12).join(''));
+  S.mode = pendingMode; S.names = S.mode === 'single' ? [names[0] || '小人'] : names.slice(0, 12);
+  await decodePhotos();
+  newPaper(); S.combo = 0; markDone(2); go(3); Sound.play('clack');
+  toast(S.mode === 'single' ? `「${S.names[0]}」已經放上磚頭` : `${S.figures.length} 個小人排好隊`);
+  say(S.figures.some(f => f.photo) ? '相都貼好喇。揀件兵器，對準佢，打！' : (S.mode === 'single' ? `好，「${S.names[0]}」放好喇。揀隻鞋，開打！` : '一切小人排好隊，揀件兵器，一次過打晒！'));
+}
+
+/* ================= 祭白虎 ================= */
+function resetPork() { const p = $('#pork'); p.style.left = ''; p.style.top = ''; p.style.bottom = ''; p.style.transition = ''; }
+function feed() {
+  if (S.fed) return; S.fed = true;
+  const box = $('#tigerbox'); $('#pork').classList.add('eaten'); box.classList.add('chomp'); Sound.play('chomp');
+  setTimeout(() => { box.classList.remove('chomp'); $('#oil').setAttribute('opacity', '1'); }, 900);
+  const mr = $('#mouthHot').getBoundingClientRect();
+  FX.burstHit(mr.left + mr.width / 2, mr.top + mr.height / 2, 0.6, ['#fbf2e6', '#e58f86', '#fff4c4']);
+  say('白虎食咗肥豬肉，成口油，唔會再亂咬人。'); checkTiger();
+}
+function feedAnimated() {
+  Sound.ensure();
+  if (S.fed) { say('白虎已經食咗喇，唔好餵到佢肥。'); return; }
+  const box = $('#tigerbox'), pork = $('#pork');
+  const br = box.getBoundingClientRect(), mr = $('#mouthHot').getBoundingClientRect(), pr = pork.getBoundingClientRect();
+  pork.style.bottom = 'auto'; pork.style.left = (pr.left - br.left) + 'px'; pork.style.top = (pr.top - br.top) + 'px';
+  void pork.offsetWidth; pork.style.transition = 'left .5s ease, top .5s ease';
+  pork.style.left = (mr.left - br.left + mr.width / 2 - pr.width / 2) + 'px';
+  pork.style.top = (mr.top - br.top + mr.height / 2 - pr.height / 2) + 'px';
+  setTimeout(() => { pork.style.transition = ''; feed(); }, 520);
+}
+function sprinkle() {
+  Sound.ensure(); const g = $('#grains');
+  for (let i = 0; i < 46; i++) {
+    const k = Math.random(), x = rand(60, 300), y = rand(70, 200); let el;
+    if (k < 0.5) { el = document.createElementNS(NS, 'ellipse'); el.setAttribute('rx', '1.8'); el.setAttribute('ry', '1'); el.setAttribute('fill', Math.random() < 0.5 ? '#1d130d' : '#f8f1e0'); }
+    else { el = document.createElementNS(NS, 'circle'); el.setAttribute('r', k < 0.82 ? '2.3' : '2.8'); el.setAttribute('fill', k < 0.82 ? '#5f9a4a' : '#e2c15a'); }
+    el.setAttribute('cx', x.toFixed(1)); el.setAttribute('cy', y.toFixed(1)); el.setAttribute('class', 'grain');
+    el.style.animationDelay = (i * 18) + 'ms'; g.appendChild(el);
+  }
+  for (let i = 0; i < 8; i++) setTimeout(() => Sound.play('tick'), i * 70);
+  if (!S.grains) { S.grains = true; say('芝麻綠豆撒落去，小是小非都散晒。'); } else say('再撒多啲，白虎食得開心。');
+  checkTiger();
+}
+function checkTiger() {
+  if (!(S.fed && S.grains) || S.done.has(4)) return;
+  setTimeout(() => {
+    $('#tigerbox').classList.add('full'); $('#fullStamp').setAttribute('opacity', '1'); Sound.play('ding'); markDone(4);
+    say('白虎食飽喇，眼都瞇埋。可以去化寶。'); toast('白虎食飽，唔會咬人');
+    const r = $('#fullStamp').getBoundingClientRect(); if (r.width) FX.sparkle(r.left + r.width / 2, r.top + r.height / 2, 20);
+  }, 700);
+}
+function resetTiger() {
+  S.fed = false; S.grains = false;
+  const box = $('#tigerbox'); box.classList.remove('full', 'chomp');
+  $('#oil').setAttribute('opacity', '0'); $('#fullStamp').setAttribute('opacity', '0'); $('#grains').innerHTML = '';
+  $('#pork').classList.remove('eaten'); resetPork();
+}
+function bindTiger() {
+  const box = $('#tigerbox'), pork = $('#pork'); let drag = null;
+  pork.addEventListener('pointerdown', e => {
+    if (S.fed) return; e.preventDefault(); Sound.ensure();
+    const pr = pork.getBoundingClientRect(); drag = { dx: e.clientX - pr.left, dy: e.clientY - pr.top };
+    pork.classList.add('drag'); try { pork.setPointerCapture(e.pointerId); } catch (err) {}
+  });
+  pork.addEventListener('pointermove', e => {
+    if (!drag) return; const br = box.getBoundingClientRect();
+    pork.style.bottom = 'auto'; pork.style.left = (e.clientX - br.left - drag.dx) + 'px'; pork.style.top = (e.clientY - br.top - drag.dy) + 'px';
+  });
+  const end = () => {
+    if (!drag) return; drag = null; pork.classList.remove('drag');
+    const pr = pork.getBoundingClientRect(), mr = $('#mouthHot').getBoundingClientRect();
+    const cx = pr.left + pr.width / 2, cy = pr.top + pr.height / 2, pad = 26;
+    if (cx > mr.left - pad && cx < mr.right + pad && cy > mr.top - pad && cy < mr.bottom + pad) feed();
+    else { resetPork(); say('再拖埋去啲，對準白虎個口。'); }
+  };
+  pork.addEventListener('pointerup', end); pork.addEventListener('pointercancel', end);
+  pork.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); feedAnimated(); } });
+  $('#btnFeed').addEventListener('click', feedAnimated); $('#btnGrain').addEventListener('click', sprinkle);
+}
+
+/* ================= 化寶 ================= */
+const BURN_ITEMS = ['paper', 'tiger', 'money', 'gold'];
+function drawThumb() {
+  const c = $('#thumbPaper'); const g = c.getContext('2d');
+  g.clearRect(0, 0, 112, 112); g.fillStyle = '#86382a'; g.fillRect(0, 0, 112, 112);
+  g.drawImage(paperCv, 0, (PH - PW) / 2, PW, PW, 0, 0, 112, 112);
+}
+function prepareBurn() {
+  drawThumb();
+  $$('#offer .item').forEach(b => { const k = b.dataset.item; b.classList.toggle('gone', !!S.burned[k]); b.setAttribute('aria-disabled', S.burned[k] ? 'true' : 'false'); });
+}
+const BURN_LINES = { paper: '小人紙化咗，小人散晒。', tiger: '白虎紙送走，口舌是非一齊走。', money: '衣紙打點四方，路路暢通。', gold: '金銀紙，多謝神明。' };
+function burnItem(k, btn) {
+  if (S.burned[k]) return; S.burned[k] = true; Sound.ensure();
+  btn.classList.add('gone'); btn.setAttribute('aria-disabled', 'true');
+  const th = btn.querySelector('.thumb'); const r = th.getBoundingClientRect(); const mr = $('#mouthRef').getBoundingClientRect();
+  const fly = new Image();
+  try { fly.src = th.tagName.toLowerCase() === 'canvas' ? th.toDataURL() : 'data:image/svg+xml,' + encodeURIComponent(new XMLSerializer().serializeToString(th)); } catch (e) {}
+  fly.className = 'flyer'; fly.alt = '';
+  Object.assign(fly.style, { left: r.left + 'px', top: r.top + 'px', width: r.width + 'px', height: r.height + 'px' });
+  document.body.appendChild(fly);
+  const dx = mr.left + mr.width / 2 - (r.left + r.width / 2), dy = mr.top + mr.height / 2 - (r.top + r.height / 2);
+  void fly.offsetWidth;
+  fly.style.transform = `translate(${dx}px, ${dy}px) rotate(${rand(-220, 220).toFixed(0)}deg) scale(.35)`; fly.style.opacity = '.2';
+  Sound.play('whoosh');
+  setTimeout(() => {
+    fly.remove(); S.heat = Math.min(3, S.heat + 1.1); Sound.play('ignite');
+    const m = $('#mouthRef').getBoundingClientRect();
+    FX.sparks(m.left + m.width / 2, m.top + m.height / 2, 24, true); Smoke.puff(m.left + m.width / 2, m.top, 14, { alpha: 0.16 });
+    say(BURN_LINES[k]);
+    if (BURN_ITEMS.every(x => S.burned[x])) {
+      markDone(5); $('#burnNote').textContent = '化晒喇，乾手淨腳';
+      setTimeout(() => say('化晒喇，乾手淨腳。去擲個筊問下神明。'), 1700);
+    } else $('#burnNote').textContent = '燒緊……';
+  }, 700);
+}
+function burnAll() {
+  const items = $$('#offer .item').filter(b => !S.burned[b.dataset.item]);
+  if (!items.length) { toast('已經化晒喇'); return; }
+  items.forEach((b, i) => setTimeout(() => burnItem(b.dataset.item, b), i * 380));
+}
+function fireTick() {
+  const bucket = $('#bucket');
+  if (S.heat <= 0.02) {
+    S.heat = 0; bucket.classList.remove('burning'); $('#emberBed').setAttribute('opacity', '0'); Smoke.removeEmitter('fire'); return;
+  }
+  S.heat = Math.max(0, S.heat - 0.009);
+  bucket.classList.add('burning'); $('#emberBed').setAttribute('opacity', Math.min(1, 0.3 + S.heat * 0.4).toFixed(2));
+  if (S.step === 5) {
+    const r = $('#mouthRef').getBoundingClientRect();
+    if (r.width) {
+      const n = Math.ceil(S.heat * 3);
+      for (let i = 0; i < n; i++) FX.flame(rand(r.left + r.width * 0.15, r.right - r.width * 0.15), r.top + r.height * 0.6, 0.7 + S.heat * 0.25);
+      if (Math.random() < 0.5) FX.ember(rand(r.left + r.width * 0.2, r.right - r.width * 0.2), r.top + r.height * 0.5);
+    }
+    if (Math.random() < 0.18) Sound.play('crackle');
+  }
+  Smoke.setEmitter('fire', () => {
+    const r = $('#mouthRef').getBoundingClientRect();
+    return r.width && S.step === 5 ? { x: r.left + r.width / 2, y: r.top, w: r.width * 0.3 } : null;
+  }, 10 + S.heat * 10, { size: 16, grow: 26, alpha: 0.13, vy: -55, life: 4.5 });
+}
+
+/* ================= 擲筊 ================= */
+function setFace(el, flat) { el.classList.toggle('flat', flat); el.classList.toggle('round', !flat); }
+function animBlock(el, flat, delay) {
+  return new Promise(res => {
+    if (reduceMotion || !el.animate) { setFace(el, flat); res(); return; }
+    const peak = -rand(110, 160), spins = rand(2.5, 4) * 360 * (Math.random() < 0.5 ? -1 : 1), endRot = rand(-14, 14);
+    const flip = setInterval(() => setFace(el, Math.random() < 0.5), 85);
+    const an = el.animate([
+      { transform: 'translateY(0) rotate(0deg)' },
+      { transform: `translateY(${peak}px) rotate(${spins * 0.5}deg)`, offset: 0.45 },
+      { transform: `translateY(0) rotate(${spins}deg)`, offset: 0.82 },
+      { transform: `translateY(-16px) rotate(${spins + endRot * 1.6}deg)`, offset: 0.92 },
+      { transform: `translateY(0) rotate(${spins + endRot}deg)` }
+    ], { duration: 1150, delay, easing: 'cubic-bezier(.3,.6,.4,1)', fill: 'forwards' });
+    an.onfinish = () => { clearInterval(flip); setFace(el, flat); res(); };
+  });
+}
+let throwing = false;
+async function throwJiao() {
+  if (throwing) return; throwing = true; Sound.ensure();
+  const btn = $('#btnThrow'); btn.disabled = true; $('#jiaoResult').textContent = '';
+  S.throws++;
+  let a = Math.random() < 0.5, b = Math.random() < 0.5;
+  const pity = S.miss >= 2;
+  if (pity) { a = Math.random() < 0.5; b = !a; }
+  Sound.play('whoosh');
+  await Promise.all([animBlock($('#blkL'), a, 0), animBlock($('#blkR'), b, 70)]);
+  Sound.play('clack'); setTimeout(() => Sound.play('clack'), 90);
+  const res = $('#jiaoResult');
+  if (a !== b) {
+    S.miss = 0; res.innerHTML = `聖杯<small>${pity ? '神明開咗保底，應承你喇。' : '一平一凸，神明應承你喇。'}</small>`;
+    bless();
+  } else if (a && b) {
+    S.miss++; res.innerHTML = '笑杯<small>兩面都平，神明笑笑口，諗清楚再擲過。</small>'; say('笑杯，神明笑咗。唔緊要，再擲過。');
+  } else {
+    S.miss++; res.innerHTML = '陰杯<small>兩面都凸，即係未得。深呼吸，再擲過。</small>'; say('陰杯唔使驚，保底就嚟。');
+  }
+  throwing = false; btn.disabled = false;
+}
+function bless() {
+  const box = $('#blessing'); const t = S.term;
+  const wish = ($('#wish').value || '').trim() || '小人退散，貴人扶持';
+  $('#wishEcho').textContent = `「${wish}」`;
+  $('#bdayEcho').textContent = t.isJZ ? '今日驚蟄，正係打小人嘅好日子。' : `下次驚蟄：${t.p.y}年${t.p.m}月${t.p.d}日，記得返嚟打小人。`;
+  $('#sumStats').innerHTML = [['今晚拍咗', S.hits], ['最高連擊', S.maxCombo], ['擊退小人', S.ko], ['擲筊次數', S.throws]]
+    .map(([k, v]) => `<div class="stat"><span class="v">${v}</span><span class="k">${k}</span></div>`).join('');
+  box.hidden = false; S.blessed = true; markDone(6); store.rounds++; saveStore();
+  Sound.play('fanfare'); FX.confetti(140);
+  const lan = document.createElement('div'); lan.className = 'lantern';
+  lan.innerHTML = '<svg viewBox="0 0 64 90" width="64" aria-hidden="true"><path d="M20 8 H44 L48 14 H16Z" fill="#8c6220"/><ellipse cx="32" cy="44" rx="26" ry="30" fill="#d4432f"/><ellipse cx="32" cy="44" rx="15" ry="30" fill="none" stroke="#f2d58f" stroke-width="1.5"/><text x="32" y="51" text-anchor="middle" font-size="20" font-weight="900" fill="#f2d58f" style="font-family:var(--f-display)">福</text><path d="M20 74 H44 L40 80 H24Z" fill="#8c6220"/><path d="M32 80 V90" stroke="#e3b456" stroke-width="2"/></svg>';
+  box.appendChild(lan); setTimeout(() => lan.remove(), 6200);
+  say('聖杯！神明應承你喇。小人退散，貴人扶持。');
+  setTimeout(() => box.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'nearest' }), 200);
+}
+function again() {
+  S.done.clear(); S.burned = {}; S.miss = 0; S.blessed = false; S.combo = 0;
+  $('#blessing').hidden = true; $('#jiaoResult').textContent = ''; $('#burnNote').textContent = '化寶桶仲未點火';
+  resetTiger(); newPaper();
+  $$('.step').forEach(b => b.classList.remove('done'));
+  go(2); toast('新一轉開始，寫張新小人');
+}
+
+/* ================= 開關同起動 ================= */
+function renderToggles() {
+  const bs = $('#btnSound'); bs.setAttribute('aria-pressed', S.sound ? 'true' : 'false'); bs.textContent = S.sound ? '聲音：開' : '聲音：關';
+  const bn = $('#btnNose'); bn.setAttribute('aria-pressed', S.nose ? 'true' : 'false'); bn.textContent = S.nose ? '鼻敏感模式：開' : '鼻敏感模式';
+}
+function init() {
+  makeFiber(); makeEdge();
+  Smoke.start(); FX.start();
+  renderToggles(); renderDeity(); updateAltarNote();
+  S.term = computeTerm(); renderAlmanac();
+  buildRack(); buildChips(); bindPaperInput(); bindTiger(); bindPhotos();
+  newPaper();
+  const redraw = () => { if (!paperDirty) drawPaper(); };
+  try {
+    if (document.fonts && document.fonts.load) {
+      Promise.all([document.fonts.load('700 40px "LXGW WenKai TC"', '小人退散'), document.fonts.load('900 40px "Chiron Sung HK"', '小人退散')]).then(redraw, () => {});
+      if (document.fonts.ready) document.fonts.ready.then(redraw, () => {});
+    }
+  } catch (e) {}
+  $$('.step').forEach(b => b.addEventListener('click', () => go(Number(b.dataset.step))));
+  $$('[data-go]').forEach(b => b.addEventListener('click', () => go(Number(b.dataset.go))));
+  $$('.deity-tabs .btn').forEach(b => b.addEventListener('click', () => switchDeity(b.dataset.deity)));
+  $('#btnIncense').addEventListener('click', addStick);
+  $('#btnBow').addEventListener('click', bowThrice);
+  $('#skipToHit').addEventListener('click', () => go(3));
+  $('#modeSingle').addEventListener('click', () => setMode('single'));
+  $('#modeAoe').addEventListener('click', () => setMode('aoe'));
+  $('#btnPlace').addEventListener('click', placePaper);
+  $('#btnNewPaper').addEventListener('click', () => { newPaper(); S.combo = 0; Sound.play('clack'); say('新紙一張，小人元氣全滿，再嚟過！'); });
+  $('#btnAuto').addEventListener('click', () => setAuto(!S.auto));
+  $('#btnAuto2').addEventListener('click', () => setAuto(!S.auto));
+  $$('#speedSeg button').forEach(b => b.addEventListener('click', () => setSpeed(b.dataset.speed)));
+  gsvg.addEventListener('click', pokeGranny);
+  $$('#offer .item').forEach(b => b.addEventListener('click', () => burnItem(b.dataset.item, b)));
+  $('#btnBurnAll').addEventListener('click', burnAll);
+  $('#btnThrow').addEventListener('click', throwJiao);
+  $('#btnAgain').addEventListener('click', again);
+  $('#btnSound').addEventListener('click', () => {
+    S.sound = !S.sound; store.sound = S.sound; saveStore(); renderToggles();
+    if (S.sound) { Sound.ensure(); Sound.play('ding'); }
+  });
+  $('#btnNose').addEventListener('click', () => {
+    S.nose = !S.nose; store.nose = S.nose; saveStore(); renderToggles();
+    say(S.nose ? '知你鼻敏感，香火煙會細好多，唔使驚打乞嗤。' : '香火全開，煙霧繚繞。');
+    if (S.nose) Smoke.blowAway();
+  });
+  addEventListener('pointerdown', () => Sound.ensure(), { once: true });
+  setInterval(tickIncense, 1000); setInterval(grannyAmbient, 15000); setInterval(fireTick, 90);
+  go(1, true); updateTally();
+  if (S.term.isJZ) say('今日驚蟄！打小人正日，春雷儲力加倍！');
+}
+init();
+})();
+</script>
+<script>if ('serviceWorker' in navigator && location.protocol === 'https:') { addEventListener('load', () => { navigator.serviceWorker.register('./sw.js').catch(() => {}); }); }</script>
+</body>
+</html>
